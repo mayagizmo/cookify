@@ -1,3 +1,3 @@
 # Cookify
 
-Blah blah
+Our recipe and shopping list website
