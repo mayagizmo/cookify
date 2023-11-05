@@ -1,38 +1,20 @@
-interface ShoppingItem {
-  name: string;
-  quantity?: string;
-  isChecked: boolean;
-  isDeleted: boolean;
-  createdAt: Date;
-}
-
-const shoppingListData: Array<ShoppingItem> = [
-  {
-    name: "Tomato",
-    quantity: "5 very red ones",
-    isChecked: false,
-    isDeleted: false,
-    createdAt: new Date(),
-  },
-  {
-    name: "Mushroomies",
-    quantity: "500g",
-    isChecked: true,
-    isDeleted: false,
-    createdAt: new Date(),
-  },
-];
+import { SearchBar } from "./SearchBar.tsx";
+import { ShoppingItem } from "./ShoppingItem.tsx";
 
 export function ShoppingList() {
-  console.log("shoppingListData", shoppingListData);
-
   return (
-    <ul>
-      {shoppingListData.map((item) => (
-        <li>
-          {item.name} - {item.isChecked ? "✅" : "❌"}
-        </li>
-      ))}
-    </ul>
+    <>
+      <div>
+        <SearchBar />
+      </div>
+      <div>
+        <ShoppingItem />
+        <ShoppingItem />
+        <ShoppingItem />
+        <ShoppingItem />
+        <ShoppingItem />
+        <ShoppingItem />
+      </div>
+    </>
   );
 }

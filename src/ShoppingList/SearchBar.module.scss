@@ -1,0 +1,31 @@
+.searchBar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  border: 1px solid #a7727d;
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
+.checkBox {
+  padding: 1rem;
+}
+.inputForm {
+  padding: 1rem;
+}
+
+.inputIngredient {
+  max-width: 400px;
+  width: 50vw;
+  // background-color: #f9f5e7;
+  color: #a7727d;
+  margin-left: 2rem;
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 2px solid #a7727d;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.checkMark {
+  padding: 1rem;
+}
