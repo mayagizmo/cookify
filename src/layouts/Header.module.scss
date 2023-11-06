@@ -1,14 +1,16 @@
 .header {
   margin-bottom: 2rem;
   padding: 1rem;
-  color: #a7727d;
+  color: #2fdb00;
   text-align: center;
-  background: #eddbc7;
-  border-bottom: 2px solid darken(#eddbc7, 7%);
+  background: white;
+
+  //border-bottom: 2px solid darken(white, 7%);
+  border-bottom: 2px solid lighten(#862d75, 50%);
 }
 
 .headerSubtitle {
-  color: #a7727d;
+  color: black;
   text-align: center;
 }
 
@@ -19,5 +21,5 @@
 }
 
 .horizontalLine {
-  color: #a7727d;
+  color: black;
 }
