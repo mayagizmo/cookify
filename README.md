@@ -12,6 +12,10 @@ To start development on local run:
 pnpm dev
 ```
 
+## Version 1
+
+- Category Page
+
 ## APIs
 
 - [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)

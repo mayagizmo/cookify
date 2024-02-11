@@ -1,16 +1,11 @@
-import { ShoppingList } from "./ShoppingList/ShoppingList.tsx";
-import { Footer } from "./layouts/Footer.tsx";
-import { Header } from "./layouts/Header.tsx";
-import "./global.scss";
+import { CategoryPage } from "./CategoryPage/CategoryPage.tsx";
+
+import "./global.css";
 
 export function App() {
   return (
     <main className="container">
-      <Header />
-
-      <ShoppingList />
-
-      <Footer />
+      <CategoryPage />
     </main>
   );
 }
