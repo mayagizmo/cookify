@@ -1,11 +1,36 @@
-import { CategoryPage } from "./CategoryPage/CategoryPage.tsx";
-
-import "./global.css";
+import { Footer } from "./Footer/Footer.tsx";
+import { Header } from "./Header/Header.tsx";
 
 export function App() {
   return (
     <main className="container">
-      <CategoryPage />
+      <Header />
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <Footer />
     </main>
   );
 }

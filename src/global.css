@@ -3,3 +3,19 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  --main-color: rgba(22, 239, 22, 0.09);
+  --accent-color: #1dc000;
+  --main-text-color: rgba(0, 0, 0, 0.75);
+}
+
+body {
+  font-family: "Quicksand", sans-serif;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  color: var(--main-text-color);
+}
