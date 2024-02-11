@@ -1,32 +1,41 @@
-.searchBar {
+.inputForm {
+  background: #eee;
+  border-bottom: 2px solid #2fdb00;
+  margin-bottom: 2rem;
+  overflow: hidden;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
-  //border: 1px solid black;
-  background-color: white;
   border-radius: 0.5rem;
 }
 
 .checkBox {
   padding: 1rem;
 }
-.inputForm {
-  padding: 1rem;
-}
 
 .inputIngredient {
-  max-width: 400px;
-  width: 50vw;
   // background-color: #f9f5e7;
-  color: black;
-  //margin-left: 2rem;
-  padding: 0.5rem;
+  background: transparent;
   border: none;
-  border-bottom: 2px solid #2fdb00;
-  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 1rem;
+  flex-grow: 1;
+  //&::placeholder {
+  //  color: #2fdb00;
+  //}
 }
 
 .checkMark {
+  border: 0;
   padding: 1rem;
   color: #2fdb00;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    color: #a82e2e;
+  }
+
+  &:active {
+    color: #139b9f;
+  }
 }
