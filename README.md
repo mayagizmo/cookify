@@ -12,9 +12,14 @@ To start development on local run:
 pnpm dev
 ```
 
-## Version 1
+## TODO
 
-- Category Page
+- [ ] Header
+- [ ] Footer
+- [ ] Category page
+  - [ ] Page title
+  - [ ] Recipe items
+- [ ] Add Google font
 
 ## APIs
 
