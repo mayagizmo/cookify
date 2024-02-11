@@ -1,0 +1,18 @@
+.footerBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 50px;
+  background: var(--main-color);
+  border-radius: 1rem;
+}
+.copyright {
+  padding: 1rem;
+}
+.copyrightIcon {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+.year {
+  padding: 1rem;
+}
