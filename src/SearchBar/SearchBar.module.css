@@ -1,8 +1,10 @@
-.formContainer {
+.searchBarContainer {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  border: var(--yellow_accent-color) solid 3px;
+  border-radius: 10px;
+  margin: 0 1rem 0 1rem;
+  align-items: center;
 }
 
 .searchField {
@@ -10,5 +12,17 @@
 }
 
 .searchSubmitButton {
-  border: pink 5px solid;
+  padding: 1rem;
+  border: 0;
+  color: var(--turqiouse-accent-color);
+  background-color: var(--main-color);
+}
+
+.freeTextInput {
+  border: 0;
+  padding: 0.5rem;
+}
+
+.searchForm {
+  flex-grow: 1;
 }

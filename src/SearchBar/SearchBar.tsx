@@ -1,8 +1,11 @@
 import { useId, useState } from "react";
+import { CgOptions } from "react-icons/cg";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 import styles from "./SearchBar.module.css";
 
 export function SearchBar() {
+  const [showFilters, setShowFilters] = useState(false);
   const [freeTextSearch, setFreeTextSearch] = useState("");
 
   const freeTextSearchId = useId();
@@ -11,47 +14,35 @@ export function SearchBar() {
     console.log("Search submitted.");
   }
 
+  function toggleFilters() {
+    setShowFilters(true);
+  }
+
   return (
-    <form className={styles.formContainer} onSubmit={handleSearch}>
-      <input
-        className={styles.searchField}
-        type="text"
-        name="freeTextSearch"
-        value={freeTextSearch}
-        id={freeTextSearchId}
-        onChange={(e) => setFreeTextSearch(e.target.value)}
-      />
-      <select
-        className={styles.searchField}
-        id="ingredients"
-        name="ingredients"
-      >
-        <option value="mushrooms">Mushrooms</option>
-        <option value="spinach">Spinach</option>
-        <option value="cheese">Cheese</option>
-        <option value="mascarpone">Mascapone</option>
-      </select>
-      <select className={styles.searchField} id="category" name="category">
-        <option value="breakfast">Breakfast</option>
-        <option value="lunch">Lunch</option>
-        <option value="dinner">Dinner</option>
-        <option value="cocktails">Cocktails</option>
-      </select>
-      <select className={styles.searchField} name="rating">
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-      </select>
-      <select name="time" className={styles.searchField}>
-        <option value="below30">-30</option>
-        <option value="above30">30+</option>
-        <option value="above60">60+</option>
-      </select>
-      <button className={styles.searchSubmitButton} type="submit">
-        Search
-      </button>
-    </form>
+    <div>
+      {showFilters ? (
+        <div>The search bar and the additional filters here</div>
+      ) : (
+        <div className={styles.searchBarContainer}>
+          <form onSubmit={handleSearch} className={styles.searchForm}>
+            <button type="submit" className={styles.searchSubmitButton}>
+              <FaMagnifyingGlass />
+            </button>
+
+            <input
+              className={styles.freeTextInput}
+              type="text"
+              id={freeTextSearchId}
+              placeholder="Search recipes"
+              value={freeTextSearch}
+              onChange={(e) => setFreeTextSearch(e.target.value)}
+            />
+          </form>
+          <span>
+            <CgOptions />
+          </span>
+        </div>
+      )}
+    </div>
   );
 }
