@@ -1,0 +1,14 @@
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.searchField {
+  border: red 5px solid;
+}
+
+.searchSubmitButton {
+  border: pink 5px solid;
+}

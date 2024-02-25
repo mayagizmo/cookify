@@ -14,12 +14,13 @@ pnpm dev
 
 ## TODO
 
-- [ ] Header
-- [ ] Footer
+- [x] Header
+- [ ] Search box
+- [x] Footer
 - [ ] Category page
   - [ ] Page title
-  - [ ] Recipe items
-- [ ] Add Google font
+  - [x] Recipe cards
+- [x] Add Google font
 
 ## APIs
 

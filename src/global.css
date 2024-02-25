@@ -4,13 +4,22 @@
   box-sizing: border-box;
 }
 :root {
-  --main-color: rgba(22, 239, 22, 0.09);
+  --main-color: #ffffff;
   --accent-color: #1dc000;
+  --turqiouse-accent-color: #82c6bd;
+  --yellow_accent-color: #eac36b;
   --main-text-color: rgba(0, 0, 0, 0.75);
+  --shadow-grey: rgb(240, 240, 240);
 }
 
 body {
   font-family: "Quicksand", sans-serif;
+  background-color: #fff;
+}
+
+a {
+  color: var(--main-text-color) !important;
+  text-decoration: none;
 }
 
 .container {
