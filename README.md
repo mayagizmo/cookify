@@ -12,6 +12,16 @@ To start development on local run:
 pnpm dev
 ```
 
+## TODO
+
+- [x] Header
+- [ ] Search box
+- [x] Footer
+- [ ] Category page
+  - [ ] Page title
+  - [x] Recipe cards
+- [x] Add Google font
+
 ## APIs
 
 - [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)

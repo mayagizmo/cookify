@@ -1,0 +1,39 @@
+.card {
+  display: flex;
+  flex-flow: column wrap;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: white;
+  box-shadow: 0 0 20px var(--shadow-grey);
+  gap: 2rem;
+  align-items: center;
+  cursor: pointer;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  background-color: var(--main-color);
+}
+
+.dishTitle {
+  font-size: 2rem;
+}
+
+.dishImage {
+  max-width: 100%;
+  height: auto;
+}
+
+.dishRating {
+  color: var(--accent-color);
+}
+
+.prepTime {
+  color: rebeccapurple;
+}
+
+.hashtags {
+  text-align: center;
+  color: var(--accent-color);
+}

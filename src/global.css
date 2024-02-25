@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --main-color: #ffffff;
+  --accent-color: #1dc000;
+  --turqiouse-accent-color: #82c6bd;
+  --yellow_accent-color: #eac36b;
+  --main-text-color: rgba(0, 0, 0, 0.75);
+  --shadow-grey: rgb(240, 240, 240);
+}
+
+body {
+  font-family: "Quicksand", sans-serif;
+  background-color: #fff;
+}
+
+a {
+  color: var(--main-text-color) !important;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  color: var(--main-text-color);
+}

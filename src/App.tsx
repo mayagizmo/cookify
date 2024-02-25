@@ -1,15 +1,12 @@
-import { ShoppingList } from "./ShoppingList/ShoppingList.tsx";
-import { Footer } from "./layouts/Footer.tsx";
-import { Header } from "./layouts/Header.tsx";
-import "./global.scss";
+import { Footer } from "./Footer/Footer.tsx";
+import { Header } from "./Header/Header.tsx";
+import { HomePage } from "./HomePage/HomePage.tsx";
 
 export function App() {
   return (
     <main className="container">
       <Header />
-
-      <ShoppingList />
-
+      <HomePage />
       <Footer />
     </main>
   );
