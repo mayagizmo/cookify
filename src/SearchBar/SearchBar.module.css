@@ -1,14 +1,8 @@
 .searchBarContainer {
-  display: flex;
-  flex-direction: row;
-  border: var(--yellow_accent-color) solid 3px;
-  border-radius: 10px;
+  border: var(--yellow_accent-color) solid 2px;
+  border-radius: 30px;
   margin: 0 1rem 0 1rem;
-  align-items: center;
-}
-
-.searchField {
-  border: red 5px solid;
+  overflow: hidden;
 }
 
 .searchSubmitButton {
@@ -21,8 +15,61 @@
 .freeTextInput {
   border: 0;
   padding: 0.5rem;
+  flex-grow: 1;
 }
 
 .searchForm {
-  flex-grow: 1;
+  display: flex;
+}
+
+.toggleFilterButton {
+  color: var(--turqiouse-accent-color);
+  padding: 1rem;
+  border: 0;
+  background: var(--main-color);
+  font-size: 20px;
+}
+
+input:focus,
+input:active {
+  outline: none;
+}
+
+.horizontalLine {
+  border-top: solid 1px var(--yellow_accent-color);
+  margin-bottom: 20px;
+}
+.advancedSearch {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem;
+}
+
+.selectDropdown {
+  margin-bottom: 1rem;
+  padding: 5px;
+  border: solid 1px var(--yellow_accent-color);
+  border-radius: 1rem;
+}
+
+select:focus,
+select:active {
+  outline: solid 1px var(--yellow_accent-color);
+  border-radius: 1rem;
+  background-color: var(--yellow_accent-color_lighter);
+}
+
+.advancedSearchSubmitButton {
+  border: solid 2px var(--yellow_accent-color);
+  border-radius: 1rem;
+  color: var(--turqiouse-accent-color);
+  background-color: var(--main-color);
+  padding: 1rem;
+}
+
+.advancedSearchSubmitButton:focus,
+.advancedSearchSubmitButton:active {
+  outline: solid 1px var(--yellow_accent-color);
+  border-radius: 1rem;
+  background-color: var(--yellow_accent-color_lighter);
 }

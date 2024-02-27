@@ -8,6 +8,7 @@
   --accent-color: #1dc000;
   --turqiouse-accent-color: #82c6bd;
   --yellow_accent-color: #eac36b;
+  --yellow_accent-color_lighter: rgba(234, 195, 107, 0.24);
   --main-text-color: rgba(0, 0, 0, 0.75);
   --shadow-grey: rgb(240, 240, 240);
 }
