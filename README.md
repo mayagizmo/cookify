@@ -15,7 +15,7 @@ pnpm dev
 ## TODO
 
 - [x] Header
-- [ ] Search box
+- [x] Search box
 - [x] Footer
 - [ ] Category page
   - [ ] Page title

@@ -1,10 +1,11 @@
+import { AddRecipePage } from "../AddRecipePage/AddRecipePage.tsx";
 import { SearchBar } from "../SearchBar/SearchBar.tsx";
 
 export function HomePage() {
   return (
     <>
       <SearchBar />
-      <br />
+      <AddRecipePage />
       <br />
       <br />
       <br />
