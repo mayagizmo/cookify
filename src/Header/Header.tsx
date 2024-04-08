@@ -1,22 +1,17 @@
-import cx from "classnames";
 import { BsJournalPlus } from "react-icons/bs";
 import { GiFoodTruck } from "react-icons/gi";
 
-import styles from "./Header.module.css";
-
 export function Header() {
   return (
-    <div className={cx(styles.headerBar, "container")}>
-      <a href="/" className={styles.logo}>
-        <span className={styles.foodTruckIcon}>
-          <GiFoodTruck />
-        </span>
-        <span className={styles.name}>Cookify</span>
+    <header className="flex justify-between mb-4">
+      <a href="/" className="text-3xl">
+        <GiFoodTruck className="text-4xl inline-block mr-2 align-sub" />
+        Cookify
       </a>
 
-      <a href="#" className={styles.addRecipeLink}>
+      <a href="#" className="p-4 text-xl hover:text-primary">
         <BsJournalPlus />
       </a>
-    </div>
+    </header>
   );
 }

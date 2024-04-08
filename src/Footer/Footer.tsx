@@ -1,17 +1,12 @@
 import { FaRegCopyright } from "react-icons/fa6";
 
-import styles from "./Footer.module.css";
-
 export function Footer() {
   return (
-    <div className={styles.footerBar}>
-      <div className={styles.copyright}>
-        <span className={styles.copyrightIcon}>
-          <FaRegCopyright />
-        </span>
-        <span>Made with ❤ in Berliiiiiin.</span>
-      </div>
-      <div className={styles.year}>2024</div>
-    </div>
+    <footer className="flex justify-between">
+      <span>
+        <FaRegCopyright className="inline-block" /> Made with ❤ in Berliiiiiin.
+      </span>
+      <span>2024</span>
+    </footer>
   );
 }

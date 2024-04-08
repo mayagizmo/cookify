@@ -8,9 +8,18 @@ export function HomePage() {
       <SearchBar />
       <AddRecipePage />
       <br />
-      <RecipeCard />
-      <RecipeCard />
-      <RecipeCard />
+
+      <section className="flex flex-wrap gap-4">
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+      </section>
+      <br />
+      <br />
       <br />
       <br />
       <br />

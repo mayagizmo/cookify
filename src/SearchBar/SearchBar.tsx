@@ -2,8 +2,6 @@ import { useId, useState } from "react";
 import { CgClose, CgOptions } from "react-icons/cg";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
-import styles from "./SearchBar.module.css";
-
 export function SearchBar() {
   const [showFilters, setShowFilters] = useState(false);
   const [freeTextSearch, setFreeTextSearch] = useState("");
@@ -47,34 +45,32 @@ export function SearchBar() {
   }
 
   return (
-    <form onSubmit={handleSearch} className={styles.searchBarContainer}>
-      <div className={styles.searchForm}>
-        <button type="submit" className={styles.searchSubmitButton}>
+    <form
+      onSubmit={handleSearch}
+      className="border border-neutral-content mb-4 rounded-lg"
+    >
+      <div className="flex">
+        <button type="submit" className="p-4 text-primary">
           <FaMagnifyingGlass />
         </button>
 
         <input
-          className={styles.freeTextInput}
           type="text"
+          className="input w-full"
           id={freeTextSearchId}
-          placeholder="Search recipes"
           value={freeTextSearch}
           onChange={(e) => setFreeTextSearch(e.target.value)}
+          placeholder="Search recipes"
         />
-        <button
-          type="button"
-          className={styles.toggleFilterButton}
-          onClick={toggleFilters}
-        >
+        <button type="button" className="text-xl p-4" onClick={toggleFilters}>
           {showFilters ? <CgClose /> : <CgOptions />}
         </button>
       </div>
 
       {showFilters && (
-        <div className={styles.advancedSearch}>
-          <hr className={styles.horizontalLine} />
+        <div className="flex flex-col gap-4 p-4 border-t border-neutral-content">
           <select
-            className={styles.selectDropdown}
+            className="select select-bordered"
             id={mealId}
             onChange={(e) => setSelectedMeal(e.target.value)}
           >
@@ -85,7 +81,7 @@ export function SearchBar() {
             ))}
           </select>
           <select
-            className={styles.selectDropdown}
+            className="select select-bordered"
             id={ingredientsId}
             onChange={(e) => setSelectedIngredient(e.target.value)}
           >
@@ -96,7 +92,7 @@ export function SearchBar() {
             ))}
           </select>
           <select
-            className={styles.selectDropdown}
+            className="select select-bordered"
             id={timeId}
             onChange={(e) => setSelectedTime(e.target.value)}
           >
@@ -107,7 +103,7 @@ export function SearchBar() {
             ))}
           </select>
 
-          <button className={styles.advancedSearchSubmitButton} type="submit">
+          <button className="btn btn-primary" type="submit">
             Apply filter
           </button>
         </div>
