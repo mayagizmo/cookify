@@ -1,29 +1,28 @@
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
-import styles from "./RecipeCard.module.css";
-
 export function RecipeCard() {
   function handleClick() {
     console.log("Redirect to recipe page");
   }
 
   return (
-    <article className={styles.card} onClick={handleClick}>
-      <h2 className={styles.dishTitle}>Title of the dish</h2>
-      <div className={styles.dishImage}>
+    <div className="card w-96 bg-base-100 shadow-xl" onClick={handleClick}>
+      <figure>
         <img
           src="/assets/images/spinatlasagne.jpg"
           alt="spinach lasaga"
           width={200}
         />
+      </figure>
+      <div className="card-body">
+        <h2 className="card-title">Title of the dish</h2>
+        <div className="badge badge-secondary">Breakfast</div>
+        <div>
+          <FaStar /> <FaStar /> <FaStarHalfAlt /> <FaRegStar /> <FaRegStar />
+        </div>
+        <div>90 min</div>
+        <div>#dinner #lunch #spinach #mushroomies #oven</div>
       </div>
-      <div className={styles.dishRating}>
-        <FaStar /> <FaStar /> <FaStarHalfAlt /> <FaRegStar /> <FaRegStar />
-      </div>
-      <div className={styles.prepTime}>90 min</div>
-      <div className={styles.hashtags}>
-        #dinner #lunch #spinach #mushroomies #oven
-      </div>
-    </article>
+    </div>
   );
 }
