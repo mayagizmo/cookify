@@ -1,8 +1,6 @@
 import { useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
-import styles from "./AddRecipePage.module.css";
-
 export function AddRecipePage() {
   const [recipeTitle, setRecipeTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -35,12 +33,17 @@ export function AddRecipePage() {
   }
 
   return (
-    <form onSubmit={handleAddRecipe} className={styles.container}>
-      <div className={styles.formControl}>
-        <label htmlFor={recipeTitleId}>Recipe Name</label>
+    <form
+      onSubmit={handleAddRecipe}
+      className="border rounded-lg border-neutral-content p-4"
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <label htmlFor={recipeTitleId} className="w-32">
+          Recipe Name
+        </label>
 
         <input
-          className={styles.inputAddRecipe}
+          className="input input-bordered flex-grow"
           id={recipeTitleId}
           name="recipe-title"
           value={recipeTitle}
@@ -48,10 +51,12 @@ export function AddRecipePage() {
           onChange={(e) => setRecipeTitle(e.target.value)}
         />
       </div>
-      <div className={styles.formControl}>
-        <label htmlFor={ingredientsId}>Ingredients</label>
+      <div className="flex items-center gap-2 mb-2">
+        <label htmlFor={ingredientsId} className="w-32">
+          Ingredients
+        </label>
         <textarea
-          className={styles.inputAddRecipe}
+          className="textarea textarea-bordered flex-grow"
           autoComplete="on"
           placeholder="Please input the ingredients one on each line"
           id={ingredientsId}
@@ -61,10 +66,12 @@ export function AddRecipePage() {
           onChange={(e) => setIngredients(e.target.value)}
         />
       </div>
-      <div className={styles.formControl}>
-        <label htmlFor={prepTimeId}>Prep Time</label>
+      <div className="flex items-center gap-2 mb-2">
+        <label htmlFor={prepTimeId} className="w-32">
+          Prep Time
+        </label>
         <input
-          className={styles.inputAddRecipe}
+          className="input input-bordered flex-grow"
           name="prep-time"
           value={prepTime}
           id={prepTimeId}
@@ -72,10 +79,12 @@ export function AddRecipePage() {
           onChange={(e) => setPrepTime(e.target.value)}
         />
       </div>
-      <div className={styles.formControl}>
-        <label htmlFor={cookTimeId}>Cook Time</label>
+      <div className="flex items-center gap-2 mb-2">
+        <label htmlFor={cookTimeId} className="w-32">
+          Cook Time
+        </label>
         <input
-          className={styles.inputAddRecipe}
+          className="input input-bordered flex-grow"
           name="cook-time"
           value={cookTime}
           id={cookTimeId}
@@ -83,25 +92,28 @@ export function AddRecipePage() {
           onChange={(e) => setCookTime(e.target.value)}
         />
       </div>
-      <button className={styles.submitButton} type="submit">
-        {isLoading ? (
-          <span>
-            <FaSpinner className="spinner" /> Submitting
-          </span>
-        ) : (
-          "Add amazing new recipe"
-        )}
-      </button>
+
+      <div className="text-center mb-2">
+        <button className="btn btn-primary" type="submit">
+          {isLoading ? (
+            <span>
+              <FaSpinner className="spinner" /> Submitting
+            </span>
+          ) : (
+            "Add amazing new recipe"
+          )}
+        </button>
+      </div>
 
       {isSuccess && (
-        <p className={styles.successMessage}>
+        <div className="alert alert-success">
           Recipe is added successfully! 🚀
-        </p>
+        </div>
       )}
       {isError && (
-        <p className={styles.errorMessage}>
+        <div className="alert alert-error">
           Recipe couldn&apos;t be added. Sorry! 😢
-        </p>
+        </div>
       )}
     </form>
   );
