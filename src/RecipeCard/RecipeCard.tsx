@@ -1,6 +1,18 @@
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
-export function RecipeCard() {
+export interface RecipeProps {
+  title: string;
+  prepTime: number;
+  cookingTime: number;
+  thumbnail: string;
+}
+
+export function RecipeCard({
+  title,
+  prepTime,
+  cookingTime,
+  thumbnail,
+}: RecipeProps) {
   function handleClick() {
     console.log("Redirect to recipe page");
   }
@@ -11,17 +23,17 @@ export function RecipeCard() {
       onClick={handleClick}
     >
       <figure>
-        <img src="/assets/images/spinatlasagne.jpg" alt="spinach lasaga" />
+        <img src={thumbnail} alt="spinach lasaga" />
       </figure>
       <div className="card-body">
         <h2 className="card-title">
-          Title of the dish
+          {title}
           <span className="badge badge-secondary">Breakfast</span>
         </h2>
         <div className="flex">
           <FaStar /> <FaStar /> <FaStarHalfAlt /> <FaRegStar /> <FaRegStar />
         </div>
-        <span>90 min</span>
+        <span>{prepTime + cookingTime} min</span>
         <footer>#dinner #lunch #spinach #mushroomies #oven</footer>
       </div>
     </article>
