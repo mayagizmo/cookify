@@ -8,18 +8,34 @@ interface APIResponse {
 
 export function HomePage() {
   const [recipes, setRecipes] = useState<Array<RecipeProps>>([]);
-
+  const [isError, setIsError] = useState(false);
   useEffect(() => {
     async function fetchRecipes() {
-      const response = await fetch(
-        "https://cookify-cloudflare.windesign.workers.dev/recipes",
-      );
-      const data: APIResponse = await response.json();
+      try {
+        const response = await fetch(
+          "https://cookify-cloudflare.windesign.workers.dev/recipes",
+        );
+        console.log("Response status: ", response.status);
 
-      setRecipes(data.recipes);
+        if (response.ok) {
+          console.log("Promise resolved and HTTP status is successful");
+          const data: APIResponse = await response.json();
+          setIsError(false);
+
+          setRecipes(data.recipes);
+        } else {
+          setIsError(true);
+        }
+      } catch (error) {
+        console.error("my fetch error is=", error);
+        // Output e.g.: "Fetch Error: 404, Not found"
+        setIsError(true);
+      }
     }
     void fetchRecipes();
   }, []);
+
+  console.log("IsError: ", isError);
 
   return (
     <>
@@ -34,6 +50,12 @@ export function HomePage() {
           />
         ))}
       </section>
+
+      {isError && (
+        <div className="alert alert-error">
+          There seems to be a problem. Sorry! 😢
+        </div>
+      )}
       <br />
       <br />
       <br />
