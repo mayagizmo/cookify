@@ -19,10 +19,8 @@ export function HomePage() {
         const response = await fetch(
           "https://cookify-cloudflare.windesign.workers.dev/recipes",
         );
-        console.log("Response status: ", response.status);
 
         if (response.ok) {
-          console.log("Promise resolved and HTTP status is successful");
           const data: APIResponse = await response.json();
           setIsError(false);
 
@@ -31,8 +29,6 @@ export function HomePage() {
           setIsError(true);
         }
       } catch (error) {
-        console.error("my fetch error is=", error);
-        // Output e.g.: "Fetch Error: 404, Not found"
         setIsError(true);
       } finally {
         setIsLoading(false);
@@ -40,8 +36,6 @@ export function HomePage() {
     }
     void fetchRecipes();
   }, []);
-
-  console.log("IsError: ", isError);
 
   return (
     <>
@@ -62,7 +56,7 @@ export function HomePage() {
           There seems to be a problem. Sorry! 😢
         </div>
       )}
-      {!isLoading && (
+      {isLoading && (
         <div className="alert alert-info">
           <FaSpinner className="spinner" /> Loading fingerlicking good recipes
           for you. Just one more tummy growl away.
