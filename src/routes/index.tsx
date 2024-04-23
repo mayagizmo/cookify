@@ -5,7 +5,7 @@ import { HomePage } from "../HomePage/HomePage.tsx";
 export const Route = createFileRoute("/")({
   component: () => (
     <>
-      <div className="hero min-h-min bg-base-200">
+      <div className="hero min-h-min bg-base-200 mb-4">
         <div className="hero-content text-center">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold"> Welcome to amazing food. </h1>
