@@ -6,9 +6,9 @@ export function AddRecipePage() {
   const [ingredients, setIngredients] = useState("");
   const [prepTime, setPrepTime] = useState("");
   const [cookTime, setCookTime] = useState("");
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(true);
+  const [isError, setIsError] = useState(false);
   const recipeTitleId = useId();
   const ingredientsId = useId();
   const prepTimeId = useId();
