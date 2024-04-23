@@ -4,15 +4,9 @@ export interface RecipeProps {
   title: string;
   prepTime: number;
   cookingTime: number;
-  thumbnail: string;
 }
 
-export function RecipeCard({
-  title,
-  prepTime,
-  cookingTime,
-  thumbnail,
-}: RecipeProps) {
+export function RecipeCard({ title, prepTime, cookingTime }: RecipeProps) {
   function handleClick() {
     console.log("Redirect to recipe page");
   }
@@ -22,9 +16,6 @@ export function RecipeCard({
       className="card card-compact basis-[calc(25%-0.75rem)] bg-base-300 shadow-xl cursor-pointer"
       onClick={handleClick}
     >
-      <figure>
-        <img src={thumbnail} alt="spinach lasaga" />
-      </figure>
       <div className="card-body">
         <h2 className="card-title">
           {title}
