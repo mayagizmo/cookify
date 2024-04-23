@@ -11,8 +11,8 @@ export const Route = createFileRoute("/")({
             <h1 className="text-5xl font-bold"> Welcome to amazing food. </h1>
             <p className="py-6">
               No more eating the same dish day after day. No more wondering
-              "Where was the recipe from that amazing dinner from?". It's all
-              here. All in one place. Happy cooking!
+              <q>Where was the recipe from that amazing dinner from?</q>.
+              It&apos;s all here. All in one place. Happy cooking!
             </p>
           </div>
         </div>

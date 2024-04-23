@@ -6,6 +6,7 @@ export function AddRecipePage() {
   const [ingredients, setIngredients] = useState("");
   const [prepTime, setPrepTime] = useState("");
   const [cookTime, setCookTime] = useState("");
+  const [instructions, setInstructions] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -13,6 +14,7 @@ export function AddRecipePage() {
   const ingredientsId = useId();
   const prepTimeId = useId();
   const cookTimeId = useId();
+  const instructionsId = useId();
 
   function splitIngredients(ingredients: string) {
     return ingredients.split("\n").filter((item: string) => item);
@@ -58,12 +60,27 @@ export function AddRecipePage() {
         <textarea
           className="textarea textarea-bordered flex-grow"
           autoComplete="on"
-          placeholder="Please input the ingredients one on each line"
+          placeholder="Input the ingredients one on each line"
           id={ingredientsId}
           name="ingredients"
           value={ingredients}
           rows={5}
           onChange={(e) => setIngredients(e.target.value)}
+        />
+      </div>
+      <div className="flex items-center gap-2 mb-2">
+        <label htmlFor={instructionsId} className="w-32">
+          Instructions
+        </label>
+        <textarea
+          className="textarea textarea-bordered flex-grow"
+          autoComplete="on"
+          placeholder="How to prepare the food?"
+          id={instructionsId}
+          name="instructions"
+          value={instructions}
+          rows={5}
+          onChange={(e) => setInstructions(e.target.value)}
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
