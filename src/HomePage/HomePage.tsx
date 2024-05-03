@@ -37,8 +37,35 @@ export function HomePage() {
 
   return (
     <>
-      <section className="flex flex-wrap gap-4">
-        {recipes.map((recipe) => (
+      <h2 className="text-2xl font-bold m-4 text-primary">Recently Added</h2>
+      <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {recipes.slice(0, 4).map((recipe) => (
+          <RecipeCard
+            key={recipe.title}
+            title={recipe.title}
+            prepTime={recipe.prepTime}
+            cookingTime={recipe.cookingTime}
+          />
+        ))}
+      </section>
+      <h2 className="text-2xl font-bold m-4 text-primary">
+        Most cooked this month
+      </h2>
+      <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {recipes.slice(0, 4).map((recipe) => (
+          <RecipeCard
+            key={recipe.title}
+            title={recipe.title}
+            prepTime={recipe.prepTime}
+            cookingTime={recipe.cookingTime}
+          />
+        ))}
+      </section>
+      <h2 className="text-2xl font-bold m-4 text-primary">
+        It has been a while..
+      </h2>
+      <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {recipes.slice(0, 4).map((recipe) => (
           <RecipeCard
             key={recipe.title}
             title={recipe.title}
