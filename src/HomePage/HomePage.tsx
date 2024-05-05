@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
-import { RecipeCard, RecipeProps } from "../RecipeCard/RecipeCard.tsx";
+import { RecipeProps } from "../RecipeCard/RecipeCard.tsx";
+import { TitleAndListOfRecipes } from "../TitleAndListOfRecipes/TitleAndListOfRecipes.tsx";
 
 interface APIResponse {
   recipes: Array<RecipeProps>;
@@ -11,6 +12,23 @@ export function HomePage() {
   const [recipes, setRecipes] = useState<Array<RecipeProps>>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const popularRecipes = recipes;
+  const rareRecipes = recipes;
+
+  const sections = [
+    {
+      title: "Recently Added",
+      recipes,
+    },
+    {
+      title: "Most cooked this month",
+      recipes: popularRecipes,
+    },
+    {
+      title: "It has been a while",
+      recipes: rareRecipes,
+    },
+  ];
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -37,16 +55,13 @@ export function HomePage() {
 
   return (
     <>
-      <section className="flex flex-wrap gap-4">
-        {recipes.map((recipe) => (
-          <RecipeCard
-            key={recipe.title}
-            title={recipe.title}
-            prepTime={recipe.prepTime}
-            cookingTime={recipe.cookingTime}
-          />
-        ))}
-      </section>
+      {sections.map((section) => (
+        <TitleAndListOfRecipes
+          key={section.title}
+          title={section.title}
+          recipes={section.recipes}
+        />
+      ))}
 
       {isError && (
         <div className="alert alert-error">
