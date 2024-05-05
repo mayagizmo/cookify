@@ -16,8 +16,52 @@ export function AddRecipePage() {
   const cookTimeId = useId();
   const instructionsId = useId();
 
+  interface RecipePayload {
+    title: string;
+    prepTime: number;
+    cookingTime: number;
+    instructions: string;
+    ingredients: Array<string>;
+  }
+
   function splitIngredients(ingredients: string) {
     return ingredients.split("\n").filter((item: string) => item);
+  }
+
+  async function postNewRecipe(data: RecipePayload) {
+    try {
+      const response = await fetch("https://cookify-go.fly.dev/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      console.log("Success:", result);
+      setIsSuccess(true);
+    } catch (error) {
+      console.error("Error:", error);
+      setIsError(true);
+    }
+  }
+  function buildPayload() {
+    return {
+      title: recipeTitle,
+      prepTime: Number(prepTime),
+      cookingTime: Number(cookTime),
+      instructions,
+      ingredients: splitIngredients(ingredients),
+    };
+  }
+
+  function resetForm() {
+    setRecipeTitle("");
+    setIngredients("");
+    setInstructions("");
+    setPrepTime("");
+    setCookTime("");
   }
 
   function handleAddRecipe(e: React.FormEvent) {
@@ -28,10 +72,12 @@ export function AddRecipePage() {
     // 1. set isLoading to true
     setIsLoading(true);
     // 2.1 send API request
-    // 2.2 if successful: set isSuccess to true
-    // 2.3 if unsuccessful set isError to true
-    // 3. set isLoading to false
+    postNewRecipe(buildPayload());
+
     setIsLoading(false);
+    setIsError(false);
+    setIsSuccess(false);
+    resetForm();
   }
 
   return (
@@ -51,6 +97,7 @@ export function AddRecipePage() {
           value={recipeTitle}
           type="text"
           onChange={(e) => setRecipeTitle(e.target.value)}
+          required
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -66,6 +113,7 @@ export function AddRecipePage() {
           value={ingredients}
           rows={5}
           onChange={(e) => setIngredients(e.target.value)}
+          required
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -81,6 +129,7 @@ export function AddRecipePage() {
           value={instructions}
           rows={5}
           onChange={(e) => setInstructions(e.target.value)}
+          required
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -94,6 +143,8 @@ export function AddRecipePage() {
           id={prepTimeId}
           type="number"
           onChange={(e) => setPrepTime(e.target.value)}
+          required
+          min={1}
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -107,6 +158,8 @@ export function AddRecipePage() {
           id={cookTimeId}
           type="number"
           onChange={(e) => setCookTime(e.target.value)}
+          required
+          min={1}
         />
       </div>
 
