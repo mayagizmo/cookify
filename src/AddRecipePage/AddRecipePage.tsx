@@ -1,6 +1,14 @@
 import { useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
+interface RecipePayload {
+  title: string;
+  prepTime: number;
+  cookingTime: number;
+  instructions: string;
+  ingredients: Array<string>;
+}
+
 export function AddRecipePage() {
   const [recipeTitle, setRecipeTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -15,18 +23,6 @@ export function AddRecipePage() {
   const prepTimeId = useId();
   const cookTimeId = useId();
   const instructionsId = useId();
-
-  interface RecipePayload {
-    title: string;
-    prepTime: number;
-    cookingTime: number;
-    instructions: string;
-    ingredients: Array<string>;
-  }
-
-  function splitIngredients(ingredients: string) {
-    return ingredients.split("\n").filter((item: string) => item);
-  }
 
   async function postNewRecipe(data: RecipePayload) {
     try {
@@ -44,9 +40,11 @@ export function AddRecipePage() {
     } catch (error) {
       console.error("Error:", error);
       setIsError(true);
+    } finally {
+      setIsLoading(false);
     }
   }
-  function buildPayload() {
+  function buildPayload(): RecipePayload {
     return {
       title: recipeTitle,
       prepTime: Number(prepTime),
@@ -65,18 +63,16 @@ export function AddRecipePage() {
   }
 
   function handleAddRecipe(e: React.FormEvent) {
+    setIsSuccess(false);
+    setIsError(false);
     e.preventDefault();
-    console.log("Recipe Title: ", recipeTitle);
-    console.log("ingredients: ", ingredients);
-    console.log("Split ingreds: ", splitIngredients(ingredients));
     // 1. set isLoading to true
     setIsLoading(true);
     // 2.1 send API request
     postNewRecipe(buildPayload());
 
-    setIsLoading(false);
-    setIsError(false);
-    setIsSuccess(false);
+    //setIsError(false);
+    //setIsSuccess(false);
     resetForm();
   }
 
@@ -187,4 +183,8 @@ export function AddRecipePage() {
       )}
     </form>
   );
+}
+
+function splitIngredients(ingredients: string) {
+  return ingredients.split("\n").filter((item: string) => item);
 }
