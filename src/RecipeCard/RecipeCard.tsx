@@ -13,7 +13,7 @@ export function RecipeCard({ title, prepTime, cookingTime }: RecipeProps) {
 
   return (
     <article
-      className="card card-compact basis-[calc(25%-0.75rem)] bg-base-300 shadow-xl cursor-pointer"
+      className="card card-compact basis-[calc(25%-0.75rem)] bg-base-300 shadow-xl cursor-pointer hover:bg-base-200"
       onClick={handleClick}
     >
       <div className="card-body">
