@@ -25,6 +25,7 @@ export function AddRecipePage() {
   const instructionsId = useId();
 
   async function postNewRecipe(data: RecipePayload) {
+    setIsLoading(true);
     try {
       const response = await fetch("https://cookify-go.fly.dev/recipes", {
         method: "POST",
@@ -37,6 +38,7 @@ export function AddRecipePage() {
       const result = await response.json();
       console.log("Success:", result);
       setIsSuccess(true);
+      resetForm();
     } catch (error) {
       console.error("Error:", error);
       setIsError(true);
@@ -63,17 +65,12 @@ export function AddRecipePage() {
   }
 
   function handleAddRecipe(e: React.FormEvent) {
+    e.preventDefault();
+
     setIsSuccess(false);
     setIsError(false);
-    e.preventDefault();
-    // 1. set isLoading to true
-    setIsLoading(true);
-    // 2.1 send API request
-    postNewRecipe(buildPayload());
 
-    //setIsError(false);
-    //setIsSuccess(false);
-    resetForm();
+    postNewRecipe(buildPayload());
   }
 
   return (
@@ -163,7 +160,7 @@ export function AddRecipePage() {
         <button className="btn btn-primary" type="submit">
           {isLoading ? (
             <span>
-              <FaSpinner className="spinner" /> Submitting
+              <FaSpinner className="spinner inline" /> Submitting recipe
             </span>
           ) : (
             "Add amazing new recipe"
