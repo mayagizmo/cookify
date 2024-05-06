@@ -53,6 +53,23 @@ export function HomePage() {
     void fetchRecipes();
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="alert alert-info">
+        <FaSpinner className="spinner" /> Loading fingerlicking good recipes for
+        you. Just one more tummy growl away.
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="alert alert-error">
+        There seems to be a problem. Sorry! 😢
+      </div>
+    );
+  }
+
   return (
     <>
       {sections.map((section) => (
@@ -63,17 +80,6 @@ export function HomePage() {
         />
       ))}
 
-      {isError && (
-        <div className="alert alert-error">
-          There seems to be a problem. Sorry! 😢
-        </div>
-      )}
-      {isLoading && (
-        <div className="alert alert-info">
-          <FaSpinner className="spinner" /> Loading fingerlicking good recipes
-          for you. Just one more tummy growl away.
-        </div>
-      )}
       <br />
       <br />
       <br />

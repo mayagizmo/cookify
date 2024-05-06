@@ -1,6 +1,14 @@
 import { useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
+interface RecipePayload {
+  title: string;
+  prepTime: number;
+  cookingTime: number;
+  instructions: string;
+  ingredients: Array<string>;
+}
+
 export function AddRecipePage() {
   const [recipeTitle, setRecipeTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -16,22 +24,53 @@ export function AddRecipePage() {
   const cookTimeId = useId();
   const instructionsId = useId();
 
-  function splitIngredients(ingredients: string) {
-    return ingredients.split("\n").filter((item: string) => item);
+  async function postNewRecipe(data: RecipePayload) {
+    setIsLoading(true);
+    try {
+      const response = await fetch("https://cookify-go.fly.dev/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      console.log("Success:", result);
+      setIsSuccess(true);
+      resetForm();
+    } catch (error) {
+      console.error("Error:", error);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  function buildPayload(): RecipePayload {
+    return {
+      title: recipeTitle,
+      prepTime: Number(prepTime),
+      cookingTime: Number(cookTime),
+      instructions,
+      ingredients: splitIngredients(ingredients),
+    };
+  }
+
+  function resetForm() {
+    setRecipeTitle("");
+    setIngredients("");
+    setInstructions("");
+    setPrepTime("");
+    setCookTime("");
   }
 
   function handleAddRecipe(e: React.FormEvent) {
     e.preventDefault();
-    console.log("Recipe Title: ", recipeTitle);
-    console.log("ingredients: ", ingredients);
-    console.log("Split ingreds: ", splitIngredients(ingredients));
-    // 1. set isLoading to true
-    setIsLoading(true);
-    // 2.1 send API request
-    // 2.2 if successful: set isSuccess to true
-    // 2.3 if unsuccessful set isError to true
-    // 3. set isLoading to false
-    setIsLoading(false);
+
+    setIsSuccess(false);
+    setIsError(false);
+
+    postNewRecipe(buildPayload());
   }
 
   return (
@@ -51,6 +90,7 @@ export function AddRecipePage() {
           value={recipeTitle}
           type="text"
           onChange={(e) => setRecipeTitle(e.target.value)}
+          required
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -66,6 +106,7 @@ export function AddRecipePage() {
           value={ingredients}
           rows={5}
           onChange={(e) => setIngredients(e.target.value)}
+          required
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -81,6 +122,7 @@ export function AddRecipePage() {
           value={instructions}
           rows={5}
           onChange={(e) => setInstructions(e.target.value)}
+          required
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -94,6 +136,8 @@ export function AddRecipePage() {
           id={prepTimeId}
           type="number"
           onChange={(e) => setPrepTime(e.target.value)}
+          required
+          min={1}
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -107,6 +151,8 @@ export function AddRecipePage() {
           id={cookTimeId}
           type="number"
           onChange={(e) => setCookTime(e.target.value)}
+          required
+          min={1}
         />
       </div>
 
@@ -114,7 +160,7 @@ export function AddRecipePage() {
         <button className="btn btn-primary" type="submit">
           {isLoading ? (
             <span>
-              <FaSpinner className="spinner" /> Submitting
+              <FaSpinner className="spinner inline" /> Submitting recipe
             </span>
           ) : (
             "Add amazing new recipe"
@@ -134,4 +180,8 @@ export function AddRecipePage() {
       )}
     </form>
   );
+}
+
+function splitIngredients(ingredients: string) {
+  return ingredients.split("\n").filter((item: string) => item);
 }
