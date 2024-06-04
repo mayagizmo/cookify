@@ -4,7 +4,7 @@ import { FaSpinner } from "react-icons/fa";
 import { RecipeProps } from "../RecipeCard/RecipeCard.tsx";
 import { TitleAndListOfRecipes } from "../TitleAndListOfRecipes/TitleAndListOfRecipes.tsx";
 
-interface APIResponse {
+export interface APIResponse {
   recipes: Array<RecipeProps>;
 }
 
@@ -81,6 +81,7 @@ export function HomePage() {
       ))}
 
       <br />
+
       <br />
       <br />
       <br />
