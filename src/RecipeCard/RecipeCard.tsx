@@ -4,6 +4,9 @@ export interface RecipeProps {
   title: string;
   prepTime: number;
   cookingTime: number;
+  id: number;
+  instructions: string;
+  ingredients: Array<string>;
 }
 
 export function RecipeCard({ title, prepTime, cookingTime }: RecipeProps) {
