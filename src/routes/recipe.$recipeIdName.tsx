@@ -1,0 +1,104 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
+
+import { APIResponse } from "../HomePage/HomePage.tsx";
+import { RecipeProps } from "../RecipeCard/RecipeCard.tsx";
+
+export const Route = createFileRoute("/recipe/$recipeIdName")({
+  component: RecipeDetailsPage,
+});
+
+function RecipeDetailsPage() {
+  const { recipeIdName } = Route.useParams();
+  const [recipeId] = recipeIdName.split("-");
+  const [recipes, setRecipes] = useState<Array<RecipeProps>>([]);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const recipe = recipes.find((item) => item.id === Number(recipeId));
+
+  useEffect(() => {
+    async function fetchRecipes() {
+      try {
+        setIsLoading(true);
+        const response = await fetch("https://cookify-go.fly.dev/recipes");
+
+        if (response.ok) {
+          const data: APIResponse = await response.json();
+          setIsError(false);
+
+          setRecipes(data.recipes);
+        } else {
+          setIsError(true);
+        }
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    void fetchRecipes();
+  }, []);
+
+  if (isLoading || !recipe) {
+    return (
+      <div className="alert alert-info">
+        <FaSpinner className="spinner" /> Loading fingerlicking good recipes for
+        you. Just one more tummy growl away.
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="alert alert-error">
+        There seems to be a problem. Sorry! 😢
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="card card-compact bg-base-300 shadow-xl m-1 p-4">
+        <h1 className="text-2xl font-bold m-4">{recipe.title}</h1>
+        <div className="divider divider-neutral">Time</div>
+        <div className="flex gap-2 justify-between">
+          <div>
+            <div className="font-bold">Prep Time </div>
+            <div>{recipe.prepTime} mins</div>
+          </div>
+          <div>
+            <div className="font-bold">Cooking Time </div>
+            <div>{recipe.cookingTime} mins</div>
+          </div>
+          <div>
+            <div className="font-bold">Total Time </div>
+            <div>{recipe.prepTime + recipe.cookingTime} mins</div>
+          </div>
+        </div>
+        <div className="divider divider-neutral">Ingredients</div>
+        <div className="px-4">
+          <ul className="list-disc">
+            {recipe.ingredients.map((ingredient: string) => (
+              <li key={ingredient}>{ingredient}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="divider divider-neutral">Instructions</div>
+
+        {recipe.instructions ? (
+          <div>
+            {recipe.instructions} lblababababab aba b ababb abb abbb ababba
+          </div>
+        ) : (
+          <div>
+            Sorry, there are no instructions for this recipe. You can give it a
+            try anyways! 🍳
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
