@@ -1,9 +1,12 @@
+import { Link } from "@tanstack/react-router";
+
 import { RecipeCard, RecipeProps } from "../RecipeCard/RecipeCard.tsx";
 
 export interface TitleAndListOfRecipesProps {
   title: string;
   recipes: Array<RecipeProps>;
 }
+
 export function TitleAndListOfRecipes({
   title,
   recipes,
@@ -13,12 +16,20 @@ export function TitleAndListOfRecipes({
       <h2 className="text-2xl font-bold m-4 text-primary">{title}</h2>
       <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {recipes.slice(0, 4).map((recipe) => (
-          <RecipeCard
+          <Link
+            to="/recipe/$recipeIdName"
+            params={{
+              recipeIdName: `${String(recipe.id)}-${recipe.title.replace(/\s/g, "-")}`,
+            }}
             key={recipe.title}
-            title={recipe.title}
-            prepTime={recipe.prepTime}
-            cookingTime={recipe.cookingTime}
-          />
+          >
+            <RecipeCard
+              key={recipe.title}
+              title={recipe.title}
+              prepTime={recipe.prepTime}
+              cookingTime={recipe.cookingTime}
+            />
+          </Link>
         ))}
       </section>
     </>
