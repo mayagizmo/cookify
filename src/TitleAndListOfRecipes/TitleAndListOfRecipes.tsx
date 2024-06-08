@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 import { RecipeCard } from "../RecipeCard/RecipeCard.tsx";
 import { ApiRecipe } from "../types.ts";
 
