@@ -19,14 +19,17 @@ export function HomePage() {
     {
       title: "Recently Added",
       recipes,
+      link: "/recently-added",
     },
     {
       title: "Most cooked this month",
       recipes: popularRecipes,
+      link: "/most-cooked",
     },
     {
       title: "It has been a while",
       recipes: rareRecipes,
+      link: "/long-time",
     },
   ];
 
@@ -77,6 +80,7 @@ export function HomePage() {
           key={section.title}
           title={section.title}
           recipes={section.recipes}
+          link={section.link}
         />
       ))}
 
