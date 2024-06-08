@@ -1,9 +1,11 @@
-import { RecipeCard, RecipeProps } from "../RecipeCard/RecipeCard.tsx";
+import { RecipeCard } from "../RecipeCard/RecipeCard.tsx";
+import { ApiRecipe } from "../types.ts";
 
-export interface TitleAndListOfRecipesProps {
+interface TitleAndListOfRecipesProps {
   title: string;
-  recipes: Array<RecipeProps>;
+  recipes: Array<ApiRecipe>;
 }
+
 export function TitleAndListOfRecipes({
   title,
   recipes,
@@ -18,6 +20,7 @@ export function TitleAndListOfRecipes({
             title={recipe.title}
             prepTime={recipe.prepTime}
             cookingTime={recipe.cookingTime}
+            id={recipe.id}
           />
         ))}
       </section>
