@@ -14,10 +14,6 @@ export function RecipeCard({
   cookingTime,
   id,
 }: RecipeCardProps) {
-  function handleClick() {
-    console.log("Redirect to recipe page");
-  }
-
   return (
     <Link
       to="/recipe/$recipeIdName"
@@ -26,10 +22,7 @@ export function RecipeCard({
       }}
       key={id}
     >
-      <article
-        className="card card-compact basis-[calc(25%-0.75rem)] bg-base-300 shadow-xl cursor-pointer hover:bg-base-200"
-        onClick={handleClick}
-      >
+      <article className="card card-compact basis-[calc(25%-0.75rem)] bg-base-300 shadow-xl cursor-pointer hover:bg-base-200">
         <div className="card-body">
           <h2 className="card-title">
             {title}
