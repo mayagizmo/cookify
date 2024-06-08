@@ -89,9 +89,7 @@ function RecipeDetailsPage() {
         <div className="divider divider-neutral">Instructions</div>
 
         {recipe.instructions ? (
-          <div>
-            {recipe.instructions} lblababababab aba b ababb abb abbb ababba
-          </div>
+          <div>{recipe.instructions}</div>
         ) : (
           <div>
             Sorry, there are no instructions for this recipe. You can give it a
