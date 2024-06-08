@@ -9,7 +9,14 @@ export interface RecipeProps {
   ingredients: Array<string>;
 }
 
-export function RecipeCard({ title, prepTime, cookingTime }: RecipeProps) {
+export interface RecipeCardProps {
+  title: string;
+  prepTime: number;
+  cookingTime: number;
+  id: number;
+}
+
+export function RecipeCard({ title, prepTime, cookingTime }: RecipeCardProps) {
   function handleClick() {
     console.log("Redirect to recipe page");
   }
