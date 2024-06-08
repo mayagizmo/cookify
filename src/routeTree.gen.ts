@@ -12,14 +12,33 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as RecipesImport } from './routes/recipes'
+import { Route as RecentlyAddedImport } from './routes/recently-added'
+import { Route as MostCookedImport } from './routes/most-cooked'
+import { Route as LongTimeImport } from './routes/long-time'
 import { Route as AddRecipeImport } from './routes/add-recipe'
 import { Route as IndexImport } from './routes/index'
 import { Route as RecipeRecipeIdNameImport } from './routes/recipe.$recipeIdName'
+import { Route as CategoryCategoryNameImport } from './routes/category.$categoryName'
 
 // Create/Update Routes
 
 const RecipesRoute = RecipesImport.update({
   path: '/recipes',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RecentlyAddedRoute = RecentlyAddedImport.update({
+  path: '/recently-added',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MostCookedRoute = MostCookedImport.update({
+  path: '/most-cooked',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LongTimeRoute = LongTimeImport.update({
+  path: '/long-time',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -38,6 +57,11 @@ const RecipeRecipeIdNameRoute = RecipeRecipeIdNameImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const CategoryCategoryNameRoute = CategoryCategoryNameImport.update({
+  path: '/category/$categoryName',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -50,8 +74,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AddRecipeImport
       parentRoute: typeof rootRoute
     }
+    '/long-time': {
+      preLoaderRoute: typeof LongTimeImport
+      parentRoute: typeof rootRoute
+    }
+    '/most-cooked': {
+      preLoaderRoute: typeof MostCookedImport
+      parentRoute: typeof rootRoute
+    }
+    '/recently-added': {
+      preLoaderRoute: typeof RecentlyAddedImport
+      parentRoute: typeof rootRoute
+    }
     '/recipes': {
       preLoaderRoute: typeof RecipesImport
+      parentRoute: typeof rootRoute
+    }
+    '/category/$categoryName': {
+      preLoaderRoute: typeof CategoryCategoryNameImport
       parentRoute: typeof rootRoute
     }
     '/recipe/$recipeIdName': {
@@ -66,7 +106,11 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AddRecipeRoute,
+  LongTimeRoute,
+  MostCookedRoute,
+  RecentlyAddedRoute,
   RecipesRoute,
+  CategoryCategoryNameRoute,
   RecipeRecipeIdNameRoute,
 ])
 
