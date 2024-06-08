@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { APIResponse } from "../HomePage/HomePage.tsx";
-import { RecipeProps } from "../RecipeCard/RecipeCard.tsx";
+import { ApiRecipe } from "../types.ts";
 
 export const Route = createFileRoute("/recipe/$recipeIdName")({
   component: RecipeDetailsPage,
@@ -12,11 +12,9 @@ export const Route = createFileRoute("/recipe/$recipeIdName")({
 function RecipeDetailsPage() {
   const { recipeIdName } = Route.useParams();
   const [recipeId] = recipeIdName.split("-");
-  const [recipes, setRecipes] = useState<Array<RecipeProps>>([]);
+  const [recipe, setRecipe] = useState<ApiRecipe>();
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const recipe = recipes.find((item) => item.id === Number(recipeId));
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -28,7 +26,7 @@ function RecipeDetailsPage() {
           const data: APIResponse = await response.json();
           setIsError(false);
 
-          setRecipes(data.recipes);
+          setRecipe(data.recipes.find((item) => item.id === Number(recipeId)));
         } else {
           setIsError(true);
         }
@@ -59,44 +57,42 @@ function RecipeDetailsPage() {
   }
 
   return (
-    <>
-      <div className="card card-compact bg-base-300 shadow-xl m-1 p-4">
-        <h1 className="text-2xl font-bold m-4">{recipe.title}</h1>
-        <div className="divider divider-neutral">Time</div>
-        <div className="flex gap-2 justify-between">
-          <div>
-            <div className="font-bold">Prep Time </div>
-            <div>{recipe.prepTime} mins</div>
-          </div>
-          <div>
-            <div className="font-bold">Cooking Time </div>
-            <div>{recipe.cookingTime} mins</div>
-          </div>
-          <div>
-            <div className="font-bold">Total Time </div>
-            <div>{recipe.prepTime + recipe.cookingTime} mins</div>
-          </div>
+    <div className="card card-compact bg-base-300 shadow-xl m-1 p-4">
+      <h1 className="text-2xl font-bold m-4">{recipe.title}</h1>
+      <div className="divider divider-neutral">Time</div>
+      <div className="flex gap-2 justify-between">
+        <div>
+          <div className="font-bold">Prep Time </div>
+          <div>{recipe.prepTime} mins</div>
         </div>
-        <div className="divider divider-neutral">Ingredients</div>
-        <div className="px-4">
-          <ul className="list-disc">
-            {recipe.ingredients.map((ingredient: string) => (
-              <li key={ingredient}>{ingredient}</li>
-            ))}
-          </ul>
+        <div>
+          <div className="font-bold">Cooking Time </div>
+          <div>{recipe.cookingTime} mins</div>
         </div>
-
-        <div className="divider divider-neutral">Instructions</div>
-
-        {recipe.instructions ? (
-          <div>{recipe.instructions}</div>
-        ) : (
-          <div>
-            Sorry, there are no instructions for this recipe. You can give it a
-            try anyways! 🍳
-          </div>
-        )}
+        <div>
+          <div className="font-bold">Total Time </div>
+          <div>{recipe.prepTime + recipe.cookingTime} mins</div>
+        </div>
       </div>
-    </>
+      <div className="divider divider-neutral">Ingredients</div>
+      <div className="px-4">
+        <ul className="list-disc">
+          {recipe.ingredients.map((ingredient: string) => (
+            <li key={ingredient}>{ingredient}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="divider divider-neutral">Instructions</div>
+
+      {recipe.instructions ? (
+        <div>{recipe.instructions}</div>
+      ) : (
+        <div>
+          Sorry, there are no instructions for this recipe. You can give it a
+          try anyways! 🍳
+        </div>
+      )}
+    </div>
   );
 }
