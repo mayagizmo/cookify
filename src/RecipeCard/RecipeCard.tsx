@@ -1,15 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
-export interface RecipeProps {
-  title: string;
-  prepTime: number;
-  cookingTime: number;
-  id: number;
-  instructions: string;
-  ingredients: Array<string>;
-}
-
 export interface RecipeCardProps {
   title: string;
   prepTime: number;

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { APIResponse } from "../HomePage/HomePage.tsx";
-import { RecipeProps } from "../RecipeCard/RecipeCard.tsx";
+import { ApiRecipe } from "../types.ts";
 
 export const Route = createFileRoute("/recipe/$recipeIdName")({
   component: RecipeDetailsPage,
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/recipe/$recipeIdName")({
 function RecipeDetailsPage() {
   const { recipeIdName } = Route.useParams();
   const [recipeId] = recipeIdName.split("-");
-  const [recipe, setRecipe] = useState<RecipeProps>();
+  const [recipe, setRecipe] = useState<ApiRecipe>();
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

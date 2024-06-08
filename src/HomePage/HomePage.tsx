@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
-import { RecipeProps } from "../RecipeCard/RecipeCard.tsx";
 import { TitleAndListOfRecipes } from "../TitleAndListOfRecipes/TitleAndListOfRecipes.tsx";
+import { ApiRecipe } from "../types.ts";
 
 export interface APIResponse {
-  recipes: Array<RecipeProps>;
+  recipes: Array<ApiRecipe>;
 }
 
 export function HomePage() {
-  const [recipes, setRecipes] = useState<Array<RecipeProps>>([]);
+  const [recipes, setRecipes] = useState<Array<ApiRecipe>>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const popularRecipes = recipes;
