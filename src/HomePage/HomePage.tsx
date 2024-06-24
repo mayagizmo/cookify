@@ -37,7 +37,9 @@ export function HomePage() {
     async function fetchRecipes() {
       try {
         setIsLoading(true);
-        const response = await fetch("https://cookify-go.fly.dev/recipes");
+        const response = await fetch(
+          "https://cookify-backend.windesign.workers.dev/recipes",
+        );
 
         if (response.ok) {
           const data: APIResponse = await response.json();
