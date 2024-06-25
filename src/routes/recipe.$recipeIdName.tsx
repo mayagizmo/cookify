@@ -20,17 +20,20 @@ function RecipeDetailsPage() {
     async function fetchRecipes() {
       try {
         setIsLoading(true);
-        const response = await fetch("https://cookify-go.fly.dev/recipes");
+        const response = await fetch(
+          `https://cookify-backend.windesign.workers.dev/recipes/${recipeId}`,
+        );
 
         if (response.ok) {
           const data: APIResponse = await response.json();
           setIsError(false);
 
-          setRecipe(data.recipes.find((item) => item.id === Number(recipeId)));
+          setRecipe(data.recipe);
         } else {
           setIsError(true);
         }
       } catch (error) {
+        console.error(error);
         setIsError(true);
       } finally {
         setIsLoading(false);
