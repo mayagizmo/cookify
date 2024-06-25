@@ -67,34 +67,58 @@ const CategoryCategoryNameRoute = CategoryCategoryNameImport.update({
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/add-recipe': {
+      id: '/add-recipe'
+      path: '/add-recipe'
+      fullPath: '/add-recipe'
       preLoaderRoute: typeof AddRecipeImport
       parentRoute: typeof rootRoute
     }
     '/long-time': {
+      id: '/long-time'
+      path: '/long-time'
+      fullPath: '/long-time'
       preLoaderRoute: typeof LongTimeImport
       parentRoute: typeof rootRoute
     }
     '/most-cooked': {
+      id: '/most-cooked'
+      path: '/most-cooked'
+      fullPath: '/most-cooked'
       preLoaderRoute: typeof MostCookedImport
       parentRoute: typeof rootRoute
     }
     '/recently-added': {
+      id: '/recently-added'
+      path: '/recently-added'
+      fullPath: '/recently-added'
       preLoaderRoute: typeof RecentlyAddedImport
       parentRoute: typeof rootRoute
     }
     '/recipes': {
+      id: '/recipes'
+      path: '/recipes'
+      fullPath: '/recipes'
       preLoaderRoute: typeof RecipesImport
       parentRoute: typeof rootRoute
     }
     '/category/$categoryName': {
+      id: '/category/$categoryName'
+      path: '/category/$categoryName'
+      fullPath: '/category/$categoryName'
       preLoaderRoute: typeof CategoryCategoryNameImport
       parentRoute: typeof rootRoute
     }
     '/recipe/$recipeIdName': {
+      id: '/recipe/$recipeIdName'
+      path: '/recipe/$recipeIdName'
+      fullPath: '/recipe/$recipeIdName'
       preLoaderRoute: typeof RecipeRecipeIdNameImport
       parentRoute: typeof rootRoute
     }
@@ -103,7 +127,7 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([
+export const routeTree = rootRoute.addChildren({
   IndexRoute,
   AddRecipeRoute,
   LongTimeRoute,
@@ -112,6 +136,50 @@ export const routeTree = rootRoute.addChildren([
   RecipesRoute,
   CategoryCategoryNameRoute,
   RecipeRecipeIdNameRoute,
-])
+})
 
 /* prettier-ignore-end */
+
+/* ROUTE_MANIFEST_START
+{
+  "routes": {
+    "__root__": {
+      "filePath": "__root.tsx",
+      "children": [
+        "/",
+        "/add-recipe",
+        "/long-time",
+        "/most-cooked",
+        "/recently-added",
+        "/recipes",
+        "/category/$categoryName",
+        "/recipe/$recipeIdName"
+      ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/add-recipe": {
+      "filePath": "add-recipe.tsx"
+    },
+    "/long-time": {
+      "filePath": "long-time.tsx"
+    },
+    "/most-cooked": {
+      "filePath": "most-cooked.tsx"
+    },
+    "/recently-added": {
+      "filePath": "recently-added.tsx"
+    },
+    "/recipes": {
+      "filePath": "recipes.tsx"
+    },
+    "/category/$categoryName": {
+      "filePath": "category.$categoryName.tsx"
+    },
+    "/recipe/$recipeIdName": {
+      "filePath": "recipe.$recipeIdName.tsx"
+    }
+  }
+}
+ROUTE_MANIFEST_END */

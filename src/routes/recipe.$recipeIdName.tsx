@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { APIResponse } from "../HomePage/HomePage.tsx";
+import { API_BASE } from "../constants.ts";
 import { ApiRecipe } from "../types.ts";
 
 export const Route = createFileRoute("/recipe/$recipeIdName")({
@@ -20,17 +21,18 @@ function RecipeDetailsPage() {
     async function fetchRecipes() {
       try {
         setIsLoading(true);
-        const response = await fetch("https://cookify-go.fly.dev/recipes");
+        const response = await fetch(`${API_BASE}/recipes/${recipeId}`);
 
         if (response.ok) {
           const data: APIResponse = await response.json();
           setIsError(false);
 
-          setRecipe(data.recipes.find((item) => item.id === Number(recipeId)));
+          setRecipe(data.recipe);
         } else {
           setIsError(true);
         }
       } catch (error) {
+        console.error(error);
         setIsError(true);
       } finally {
         setIsLoading(false);

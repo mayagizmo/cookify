@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { APIResponse } from "../HomePage/HomePage.tsx";
-import { RecipeCard, RecipeProps } from "../RecipeCard/RecipeCard.tsx";
+import { RecipeCard, RecipeCardProps } from "../RecipeCard/RecipeCard.tsx";
+import { API_BASE } from "../constants.ts";
+import { ApiRecipe } from "../types.ts";
 
 export const Route = createFileRoute("/category/$categoryName")({
   component: CategoryPage,
@@ -11,7 +13,7 @@ export const Route = createFileRoute("/category/$categoryName")({
 
 function CategoryPage() {
   const { categoryName } = Route.useParams();
-  const [recipes, setRecipes] = useState<Array<RecipeProps>>([]);
+  const [recipes, setRecipes] = useState<Array<ApiRecipe>>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,7 +21,7 @@ function CategoryPage() {
     async function fetchRecipes() {
       try {
         setIsLoading(true);
-        const response = await fetch("https://cookify-go.fly.dev/recipes");
+        const response = await fetch(`${API_BASE}/recipes`);
 
         if (response.ok) {
           const data: APIResponse = await response.json();
@@ -54,6 +56,7 @@ function CategoryPage() {
       </div>
     );
   }
+  console.log("recipes: ", recipes);
 
   return (
     <>

@@ -1,12 +1,16 @@
 import { useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
+import { API_BASE } from "../constants.ts";
+
 interface RecipePayload {
   title: string;
   prepTime: number;
   cookingTime: number;
   instructions: string;
   ingredients: Array<string>;
+  images?: string;
+  source?: string;
 }
 
 export function AddRecipePage() {
@@ -27,7 +31,7 @@ export function AddRecipePage() {
   async function postNewRecipe(data: RecipePayload) {
     setIsLoading(true);
     try {
-      const response = await fetch("https://cookify-go.fly.dev/recipes", {
+      const response = await fetch(`${API_BASE}/recipes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
