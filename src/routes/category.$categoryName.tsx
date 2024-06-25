@@ -4,7 +4,7 @@ import { FaSpinner } from "react-icons/fa";
 
 import { APIResponse } from "../HomePage/HomePage.tsx";
 import { RecipeCard, RecipeCardProps } from "../RecipeCard/RecipeCard.tsx";
-import { APIBASE } from "../constants.ts";
+import { API_BASE } from "../constants.ts";
 import { ApiRecipe } from "../types.ts";
 
 export const Route = createFileRoute("/category/$categoryName")({
@@ -21,7 +21,7 @@ function CategoryPage() {
     async function fetchRecipes() {
       try {
         setIsLoading(true);
-        const response = await fetch(`${APIBASE}recipes`);
+        const response = await fetch(`${API_BASE}/recipes`);
 
         if (response.ok) {
           const data: APIResponse = await response.json();
