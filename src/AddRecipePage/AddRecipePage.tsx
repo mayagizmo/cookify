@@ -1,4 +1,4 @@
-import { FormEvent, useId, useState } from "react";
+import { useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { API_BASE } from "../constants.ts";
@@ -13,8 +13,6 @@ interface RecipePayload {
   source?: Array<string>;
 }
 
-type Sources = Record<string, string>;
-
 export function AddRecipePage() {
   const [recipeTitle, setRecipeTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -22,8 +20,7 @@ export function AddRecipePage() {
   const [cookTime, setCookTime] = useState("");
   const [instructions, setInstructions] = useState("");
   const [newSource, setNewSource] = useState("");
-  //const [sourcesList, setSourcesList] = useState<Array<string>>([]);
-  const [sources, setSources] = useState<Sources>({});
+  const [sourcesList, setSourcesList] = useState<Array<string>>([]);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -56,7 +53,6 @@ export function AddRecipePage() {
       setIsLoading(false);
     }
   }
-
   function buildPayload(): RecipePayload {
     return {
       title: recipeTitle,
@@ -73,39 +69,36 @@ export function AddRecipePage() {
     setInstructions("");
     setPrepTime("");
     setCookTime("");
-    setSources({});
+    setSourcesList([]);
   }
 
-  async function handleAddRecipe(e: FormEvent) {
+  function handleAddRecipe(e: React.FormEvent) {
     e.preventDefault();
 
     setIsSuccess(false);
     setIsError(false);
 
-    await postNewRecipe(buildPayload());
+    postNewRecipe(buildPayload());
   }
 
-  function handleAddReference(e: FormEvent) {
+  function handleAddReference(e: React.FormEvent) {
     e.preventDefault();
 
-    const key = Math.random().toString();
-
-    setSources({ ...sources, [key]: newSource });
+    setSourcesList((prevState) => [...prevState, newSource]);
 
     setNewSource("");
   }
 
-  function updateSource(key: string, value: string) {
-    setSources({
-      ...sources,
-      [key]: value,
-    });
+  function handleDynamicInputChange(index: number, newValue: string) {
+    setSourcesList(
+      sourcesList.map((source, i) => (i === index ? newValue : source)),
+    );
   }
 
-  function deleteSource(key: string) {
-    const clonedSources = { ...sources };
-    delete clonedSources[key];
-    setSources(clonedSources);
+  function handleDeleteReference(index: number, valueToDelete: string) {
+    const newVal = sourcesList.filter((item) => item != valueToDelete);
+
+    setSourcesList(newVal);
   }
 
   return (
@@ -206,22 +199,24 @@ export function AddRecipePage() {
           Add
         </button>
       </div>
-      {Object.keys(sources).length > 0 && (
+      {sourcesList.length > 0 && (
         <div>
-          {Object.keys(sources).map((key) => (
-            <div key={key}>
+          {sourcesList.map((source, index) => (
+            <div key={index}>
               <input
                 className="input input-bordered flex-"
-                name={sources[key]}
-                id={sources[key]}
-                value={sources[key]}
+                name={source}
+                id={source}
+                value={source}
                 type="text"
-                onChange={(e) => updateSource(key, e.target.value)}
+                onChange={(e) =>
+                  handleDynamicInputChange(index, e.target.value)
+                }
               />
               <button
                 className="btn-s"
                 type="button"
-                onClick={() => deleteSource(key)}
+                onClick={() => handleDeleteReference(index, source)}
               >
                 ❌
               </button>
