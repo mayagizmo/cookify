@@ -60,6 +60,7 @@ export function AddRecipePage() {
       cookingTime: Number(cookTime),
       instructions,
       ingredients: splitIngredients(ingredients),
+      source: sourcesList,
     };
   }
 
@@ -95,8 +96,8 @@ export function AddRecipePage() {
     );
   }
 
-  function handleDeleteReference(index: number, valueToDelete: string) {
-    const newVal = sourcesList.filter((item) => item != valueToDelete);
+  function handleDeleteReference(indexToDelete: number) {
+    const newVal = sourcesList.filter((_, index) => index !== indexToDelete);
 
     setSourcesList(newVal);
   }
@@ -165,7 +166,7 @@ export function AddRecipePage() {
           type="number"
           onChange={(e) => setPrepTime(e.target.value)}
           required
-          min={1}
+          min={0}
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -180,31 +181,36 @@ export function AddRecipePage() {
           type="number"
           onChange={(e) => setCookTime(e.target.value)}
           required
-          min={1}
+          min={0}
         />
       </div>
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex flex-col md:flex-row items-center gap-2 mb-2">
         <label htmlFor={newSourceId} className="w-32">
           References
         </label>
-        <input
-          className="input input-bordered flex-grow"
-          name="source"
-          value={newSource}
-          id={newSourceId}
-          type="text"
-          onChange={(e) => setNewSource(e.target.value)}
-        />
-        <button className="btn" onClick={handleAddReference}>
-          Add
-        </button>
+        <aside className="w-full flex gap-2">
+          <input
+            className="input input-bordered flex-grow"
+            name="source"
+            value={newSource}
+            id={newSourceId}
+            type="text"
+            onChange={(e) => setNewSource(e.target.value)}
+          />
+          <button className="btn" onClick={handleAddReference}>
+            Add
+          </button>
+        </aside>
       </div>
       {sourcesList.length > 0 && (
-        <div>
+        <div className="flex flex-wrap gap-2">
           {sourcesList.map((source, index) => (
-            <div key={index}>
+            <div
+              className="flex flex-1 min-w-[calc(100%-0.5rem)] lg:min-w-[calc(50%-0.5rem)]"
+              key={index}
+            >
               <input
-                className="input input-bordered flex-"
+                className="input input-bordered flex-grow"
                 name={source}
                 id={source}
                 value={source}
@@ -214,9 +220,9 @@ export function AddRecipePage() {
                 }
               />
               <button
-                className="btn-s"
+                className="p-2"
                 type="button"
-                onClick={() => handleDeleteReference(index, source)}
+                onClick={() => handleDeleteReference(index)}
               >
                 ❌
               </button>
@@ -225,7 +231,7 @@ export function AddRecipePage() {
         </div>
       )}
 
-      <div className="text-center mb-2">
+      <div className="text-center mb-2 mt-4">
         <button className="btn btn-primary" type="submit">
           {isLoading ? (
             <span>
