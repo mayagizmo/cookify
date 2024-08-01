@@ -10,7 +10,7 @@ interface RecipePayload {
   instructions: string;
   ingredients: Array<string>;
   images?: string;
-  source?: string;
+  source?: Array<string>;
 }
 
 export function AddRecipePage() {
@@ -19,6 +19,8 @@ export function AddRecipePage() {
   const [prepTime, setPrepTime] = useState("");
   const [cookTime, setCookTime] = useState("");
   const [instructions, setInstructions] = useState("");
+  const [newSource, setNewSource] = useState("");
+  const [sourcesList, setSourcesList] = useState<Array<string>>([]);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -27,6 +29,7 @@ export function AddRecipePage() {
   const prepTimeId = useId();
   const cookTimeId = useId();
   const instructionsId = useId();
+  const newSourceId = useId();
 
   async function postNewRecipe(data: RecipePayload) {
     setIsLoading(true);
@@ -57,6 +60,7 @@ export function AddRecipePage() {
       cookingTime: Number(cookTime),
       instructions,
       ingredients: splitIngredients(ingredients),
+      source: sourcesList,
     };
   }
 
@@ -66,6 +70,7 @@ export function AddRecipePage() {
     setInstructions("");
     setPrepTime("");
     setCookTime("");
+    setSourcesList([]);
   }
 
   function handleAddRecipe(e: React.FormEvent) {
@@ -75,6 +80,26 @@ export function AddRecipePage() {
     setIsError(false);
 
     postNewRecipe(buildPayload());
+  }
+
+  function handleAddReference(e: React.FormEvent) {
+    e.preventDefault();
+
+    setSourcesList((prevState) => [...prevState, newSource]);
+
+    setNewSource("");
+  }
+
+  function handleDynamicInputChange(index: number, newValue: string) {
+    setSourcesList(
+      sourcesList.map((source, i) => (i === index ? newValue : source)),
+    );
+  }
+
+  function handleDeleteReference(indexToDelete: number) {
+    const newVal = sourcesList.filter((_, index) => index !== indexToDelete);
+
+    setSourcesList(newVal);
   }
 
   return (
@@ -141,7 +166,7 @@ export function AddRecipePage() {
           type="number"
           onChange={(e) => setPrepTime(e.target.value)}
           required
-          min={1}
+          min={0}
         />
       </div>
       <div className="flex items-center gap-2 mb-2">
@@ -156,11 +181,57 @@ export function AddRecipePage() {
           type="number"
           onChange={(e) => setCookTime(e.target.value)}
           required
-          min={1}
+          min={0}
         />
       </div>
+      <div className="flex flex-col md:flex-row items-center gap-2 mb-2">
+        <label htmlFor={newSourceId} className="w-32">
+          References
+        </label>
+        <aside className="w-full flex gap-2">
+          <input
+            className="input input-bordered flex-grow"
+            name="source"
+            value={newSource}
+            id={newSourceId}
+            type="text"
+            onChange={(e) => setNewSource(e.target.value)}
+          />
+          <button className="btn" onClick={handleAddReference}>
+            Add
+          </button>
+        </aside>
+      </div>
+      {sourcesList.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {sourcesList.map((source, index) => (
+            <div
+              className="flex flex-1 min-w-[calc(100%-0.5rem)] lg:min-w-[calc(50%-0.5rem)]"
+              key={index}
+            >
+              <input
+                className="input input-bordered flex-grow"
+                name={source}
+                id={source}
+                value={source}
+                type="text"
+                onChange={(e) =>
+                  handleDynamicInputChange(index, e.target.value)
+                }
+              />
+              <button
+                className="p-2"
+                type="button"
+                onClick={() => handleDeleteReference(index)}
+              >
+                ❌
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
 
-      <div className="text-center mb-2">
+      <div className="text-center mb-2 mt-4">
         <button className="btn btn-primary" type="submit">
           {isLoading ? (
             <span>
