@@ -2,21 +2,32 @@
 
 Cookify is an app which helps you to keep track of all your favorite recipes. Furthermore, it features your most cooked dishes and reminds you of the long forgotten but once loved foods that deserve some attention.
 
-## Features
+## Prerequisites
+- Node.js
+- pnpm
+
+## Setup  :rocket:
+- pnpm install
+- pnpm dev
+
+## Tech Stack
+- React
+-  DaisyUI
+-  TanStack Router
+-  Vite
+
+## Features :sparkles:
 - Add a new recipe to the database
 - View Recipes in 3 different categories (e.g. "recently cooked")
 - Detailed view for each recipe
 
-## Development
-This project uses 
-- React
--  DaisyUI
--   TanStack Router
--   vite
 
-## TODO
+## TODO :construction:
 
-This project is still under construction and more and more features are gradually added.
+This project is still under construction and the following features are planned:
+- Comments on recipes
+- Counting how many times a recipe has been cooked (with date)
+- Rating of recipes by user
 
 ## APIs
 New API Endpoint: `https://cookify-backend.windesign.workers.dev/`
