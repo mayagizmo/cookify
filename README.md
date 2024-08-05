@@ -29,7 +29,7 @@ This project is still under construction and the following features are planned:
 - Counting how many times a recipe has been cooked (with date)
 - Rating of recipes by user
 
-## APIs
+## API Spec
 New API Endpoint: `https://cookify-backend.windesign.workers.dev/`
 
 Endpoints:
@@ -37,4 +37,4 @@ Endpoints:
 | - | - | - | - |
 | GET | /recipes | - | Returns a list of recipes |
 | GET | /recipes/:recipeId | `recipeId` should be the ID (`number`) of the recipe | Returns a single recipe by ID |
-| POST | /recipes | <pre>z.object({<br/>  title: z.string(), <br/>  prepTime: z.number(), <br/>  cookingTime: z.number(), <br/>  instructions: z.string().optional(), <br/>  ingredients: z.array(z.string()), <br/>  images: z.string().optional(), <br/>  source: z.string().optional(), <br/>});</pre> | Create new recipe |
+| POST | /recipes | <pre>z.object({<br/>  title: z.string(), <br/>  prepTime: z.number(), <br/>  cookingTime: z.number(), <br/>  instructions: z.string().optional(), <br/>  ingredients: z.array(z.string()), <br/>  images: z.string().optional(), <br/> source: z.array(z.string()).optional(), <br/>});</pre> | Create new recipe |
