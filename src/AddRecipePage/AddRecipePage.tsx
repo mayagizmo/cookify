@@ -103,157 +103,156 @@ export function AddRecipePage() {
   }
 
   return (
-    <form
-      onSubmit={handleAddRecipe}
-      className="border rounded-lg border-neutral-content p-4"
-    >
-      <div className="flex items-center gap-2 mb-2">
-        <label htmlFor={recipeTitleId} className="w-32">
-          Recipe Name
-        </label>
+    <>
+      <p className="mb-2 text-sm text-red-600">* indicates a required field</p>
+      <form onSubmit={handleAddRecipe}>
+        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
+          <label htmlFor={recipeTitleId} className="w-32">
+            <span className="text-red-600">*</span> Recipe Name
+          </label>
 
-        <input
-          className="input input-bordered flex-grow"
-          id={recipeTitleId}
-          name="recipe-title"
-          value={recipeTitle}
-          type="text"
-          onChange={(e) => setRecipeTitle(e.target.value)}
-          required
-        />
-      </div>
-      <div className="flex items-center gap-2 mb-2">
-        <label htmlFor={ingredientsId} className="w-32">
-          Ingredients
-        </label>
-        <textarea
-          className="textarea textarea-bordered flex-grow"
-          autoComplete="on"
-          placeholder="Input the ingredients one on each line"
-          id={ingredientsId}
-          name="ingredients"
-          value={ingredients}
-          rows={5}
-          onChange={(e) => setIngredients(e.target.value)}
-          required
-        />
-      </div>
-      <div className="flex items-center gap-2 mb-2">
-        <label htmlFor={instructionsId} className="w-32">
-          Instructions
-        </label>
-        <textarea
-          className="textarea textarea-bordered flex-grow"
-          autoComplete="on"
-          placeholder="How to prepare the food?"
-          id={instructionsId}
-          name="instructions"
-          value={instructions}
-          rows={5}
-          onChange={(e) => setInstructions(e.target.value)}
-          required
-        />
-      </div>
-      <div className="flex items-center gap-2 mb-2">
-        <label htmlFor={prepTimeId} className="w-32">
-          Prep Time
-        </label>
-        <input
-          className="input input-bordered flex-grow"
-          name="prep-time"
-          value={prepTime}
-          id={prepTimeId}
-          type="number"
-          onChange={(e) => setPrepTime(e.target.value)}
-          required
-          min={0}
-        />
-      </div>
-      <div className="flex items-center gap-2 mb-2">
-        <label htmlFor={cookTimeId} className="w-32">
-          Cook Time
-        </label>
-        <input
-          className="input input-bordered flex-grow"
-          name="cook-time"
-          value={cookTime}
-          id={cookTimeId}
-          type="number"
-          onChange={(e) => setCookTime(e.target.value)}
-          required
-          min={0}
-        />
-      </div>
-      <div className="flex flex-col md:flex-row items-center gap-2 mb-2">
-        <label htmlFor={newSourceId} className="w-32">
-          References
-        </label>
-        <aside className="w-full flex gap-2">
           <input
             className="input input-bordered flex-grow"
-            name="source"
-            value={newSource}
-            id={newSourceId}
+            id={recipeTitleId}
+            name="recipe-title"
+            value={recipeTitle}
             type="text"
-            onChange={(e) => setNewSource(e.target.value)}
+            onChange={(e) => setRecipeTitle(e.target.value)}
+            required
           />
-          <button className="btn" onClick={handleAddReference}>
-            Add
-          </button>
-        </aside>
-      </div>
-      {sourcesList.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {sourcesList.map((source, index) => (
-            <div
-              className="flex flex-1 min-w-[calc(100%-0.5rem)] lg:min-w-[calc(50%-0.5rem)]"
-              key={index}
-            >
-              <input
-                className="input input-bordered flex-grow"
-                name={source}
-                id={source}
-                value={source}
-                type="text"
-                onChange={(e) =>
-                  handleDynamicInputChange(index, e.target.value)
-                }
-              />
-              <button
-                className="p-2"
-                type="button"
-                onClick={() => handleDeleteReference(index)}
+        </div>
+        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
+          <label htmlFor={ingredientsId} className="w-32">
+            <span className="text-red-600">*</span> Ingredients
+          </label>
+          <textarea
+            className="textarea textarea-bordered flex-grow"
+            autoComplete="on"
+            placeholder="Input the ingredients one on each line"
+            id={ingredientsId}
+            name="ingredients"
+            value={ingredients}
+            rows={5}
+            onChange={(e) => setIngredients(e.target.value)}
+            required
+          />
+        </div>
+        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
+          <label htmlFor={instructionsId} className="w-32">
+            Instructions
+          </label>
+          <textarea
+            className="textarea textarea-bordered flex-grow"
+            autoComplete="on"
+            placeholder="How to prepare the food?"
+            id={instructionsId}
+            name="instructions"
+            value={instructions}
+            rows={5}
+            onChange={(e) => setInstructions(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
+          <label htmlFor={prepTimeId} className="w-32">
+            <span className="text-red-600">*</span> Prep Time
+          </label>
+          <input
+            className="input input-bordered flex-grow"
+            name="prep-time"
+            value={prepTime}
+            id={prepTimeId}
+            type="number"
+            onChange={(e) => setPrepTime(e.target.value)}
+            required
+            min={0}
+          />
+        </div>
+        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
+          <label htmlFor={cookTimeId} className="w-32">
+            <span className="text-red-600">*</span> Cook Time
+          </label>
+          <input
+            className="input input-bordered flex-grow"
+            name="cook-time"
+            value={cookTime}
+            id={cookTimeId}
+            type="number"
+            onChange={(e) => setCookTime(e.target.value)}
+            required
+            min={0}
+          />
+        </div>
+        <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+          <label htmlFor={newSourceId} className="w-32">
+            References
+          </label>
+          <aside className="flex gap-2 flex-grow">
+            <input
+              className="input input-bordered flex-grow"
+              name="source"
+              value={newSource}
+              id={newSourceId}
+              type="text"
+              onChange={(e) => setNewSource(e.target.value)}
+            />
+            <button className="btn" onClick={handleAddReference}>
+              Add
+            </button>
+          </aside>
+        </div>
+        {sourcesList.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {sourcesList.map((source, index) => (
+              <div
+                className="flex flex-1 min-w-[calc(100%-0.5rem)] lg:min-w-[calc(50%-0.5rem)]"
+                key={index}
               >
-                ❌
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
+                <input
+                  className="input input-bordered flex-grow"
+                  name={source}
+                  id={source}
+                  value={source}
+                  type="text"
+                  onChange={(e) =>
+                    handleDynamicInputChange(index, e.target.value)
+                  }
+                />
+                <button
+                  className="p-2"
+                  type="button"
+                  onClick={() => handleDeleteReference(index)}
+                >
+                  ❌
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
 
-      <div className="text-center mb-2 mt-4">
-        <button className="btn btn-primary" type="submit">
-          {isLoading ? (
-            <span>
-              <FaSpinner className="spinner inline" /> Submitting recipe
-            </span>
-          ) : (
-            "Add amazing new recipe"
-          )}
-        </button>
-      </div>
+        <div className="text-center mb-2 mt-4">
+          <button className="btn btn-primary" type="submit">
+            {isLoading ? (
+              <span>
+                <FaSpinner className="spinner inline" /> Submitting recipe
+              </span>
+            ) : (
+              "Add amazing new recipe"
+            )}
+          </button>
+        </div>
 
-      {isSuccess && (
-        <div className="alert alert-success">
-          Recipe is added successfully! 🚀
-        </div>
-      )}
-      {isError && (
-        <div className="alert alert-error">
-          Recipe couldn&apos;t be added. Sorry! 😢
-        </div>
-      )}
-    </form>
+        {isSuccess && (
+          <div className="alert alert-success">
+            Recipe is added successfully! 🚀
+          </div>
+        )}
+        {isError && (
+          <div className="alert alert-error">
+            Recipe couldn&apos;t be added. Sorry! 😢
+          </div>
+        )}
+      </form>
+    </>
   );
 }
 
