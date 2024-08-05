@@ -5,7 +5,7 @@ import { AddRecipePage } from "../AddRecipePage/AddRecipePage.tsx";
 export const Route = createFileRoute("/add-recipe")({
   component: () => (
     <>
-      <h1>Add a brand new recipe to the data base!</h1>
+      <h1 className="text-xl mb-4">Add a new recipe</h1>
 
       <AddRecipePage />
     </>
