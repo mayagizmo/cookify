@@ -1,5 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/long-time')({
-  component: () => <div>Hello /long-time!</div>
-})
+import { PageHeading } from "../Utility/PageHeading.tsx";
+
+export const Route = createFileRoute("/long-time")({
+  component: () => <PageHeading title="Long time no see" />,
+});

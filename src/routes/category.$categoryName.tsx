@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { APIResponse } from "../HomePage/HomePage.tsx";
-import { RecipeCard, RecipeCardProps } from "../RecipeCard/RecipeCard.tsx";
+import { RecipeCard } from "../RecipeCard/RecipeCard.tsx";
 import { API_BASE } from "../constants.ts";
 import { ApiRecipe } from "../types.ts";
 
