@@ -1,7 +1,8 @@
-import { useId, useState } from "react";
+import { ChangeEvent, useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { FormLabel } from "../Utility/FormLabel.tsx";
+import { FormTextInput } from "../Utility/FormTextInput.tsx";
 import { API_BASE } from "../constants.ts";
 
 interface RecipePayload {
@@ -107,19 +108,19 @@ export function AddRecipePage() {
     <>
       <p className="mb-2 text-sm text-red-600">* indicates a required field</p>
       <form onSubmit={handleAddRecipe}>
-        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <FormLabel labelText="Recipe Name" required htmlFor={recipeTitleId} />
+        <FormTextInput
+          labelText="Recipe Test"
+          requiredLabel
+          id={recipeTitleId}
+          name="recipe-title"
+          value={recipeTitle}
+          type="text"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setRecipeTitle(e.target.value)
+          }
+          requiredField
+        />
 
-          <input
-            className="input input-bordered flex-grow"
-            id={recipeTitleId}
-            name="recipe-title"
-            value={recipeTitle}
-            type="text"
-            onChange={(e) => setRecipeTitle(e.target.value)}
-            required
-          />
-        </div>
         <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
           <FormLabel labelText="Ingredients" required htmlFor={ingredientsId} />
           <textarea
