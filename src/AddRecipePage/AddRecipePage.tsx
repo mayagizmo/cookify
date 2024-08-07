@@ -1,6 +1,8 @@
-import { useId, useState } from "react";
+import { ChangeEvent, useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
+import { FormLabel } from "../Utility/FormLabel.tsx";
+import { FormTextInput } from "../Utility/FormTextInput.tsx";
 import { API_BASE } from "../constants.ts";
 
 interface RecipePayload {
@@ -106,25 +108,21 @@ export function AddRecipePage() {
     <>
       <p className="mb-2 text-sm text-red-600">* indicates a required field</p>
       <form onSubmit={handleAddRecipe}>
-        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={recipeTitleId} className="w-32">
-            <span className="text-red-600">*</span> Recipe Name
-          </label>
+        <FormTextInput
+          labelText="Recipe Test"
+          requiredLabel
+          id={recipeTitleId}
+          name="recipe-title"
+          value={recipeTitle}
+          type="text"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setRecipeTitle(e.target.value)
+          }
+          requiredField
+        />
 
-          <input
-            className="input input-bordered flex-grow"
-            id={recipeTitleId}
-            name="recipe-title"
-            value={recipeTitle}
-            type="text"
-            onChange={(e) => setRecipeTitle(e.target.value)}
-            required
-          />
-        </div>
         <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={ingredientsId} className="w-32">
-            <span className="text-red-600">*</span> Ingredients
-          </label>
+          <FormLabel labelText="Ingredients" required htmlFor={ingredientsId} />
           <textarea
             className="textarea textarea-bordered flex-grow"
             autoComplete="on"
@@ -138,9 +136,11 @@ export function AddRecipePage() {
           />
         </div>
         <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={instructionsId} className="w-32">
-            Instructions
-          </label>
+          <FormLabel
+            labelText="Instructions"
+            required={false}
+            htmlFor={instructionsId}
+          />
           <textarea
             className="textarea textarea-bordered flex-grow"
             autoComplete="on"
@@ -153,9 +153,7 @@ export function AddRecipePage() {
           />
         </div>
         <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={prepTimeId} className="w-32">
-            <span className="text-red-600">*</span> Prep Time
-          </label>
+          <FormLabel labelText="Prep Time" required htmlFor={prepTimeId} />
           <input
             className="input input-bordered flex-grow"
             name="prep-time"
@@ -168,9 +166,7 @@ export function AddRecipePage() {
           />
         </div>
         <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={cookTimeId} className="w-32">
-            <span className="text-red-600">*</span> Cook Time
-          </label>
+          <FormLabel labelText="Cook Time" required htmlFor={cookTimeId} />
           <input
             className="input input-bordered flex-grow"
             name="cook-time"
@@ -183,9 +179,11 @@ export function AddRecipePage() {
           />
         </div>
         <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
-          <label htmlFor={newSourceId} className="w-32">
-            References
-          </label>
+          <FormLabel
+            labelText="References"
+            required={false}
+            htmlFor={newSourceId}
+          />
           <aside className="flex gap-2 flex-grow">
             <input
               className="input input-bordered flex-grow"
