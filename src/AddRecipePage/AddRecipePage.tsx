@@ -1,8 +1,8 @@
-import { ChangeEvent, useId, useState } from "react";
+import { useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
+import { FormInput } from "../Utility/FormInput.tsx";
 import { FormLabel } from "../Utility/FormLabel.tsx";
-import { FormTextInput } from "../Utility/FormTextInput.tsx";
 import { API_BASE } from "../constants.ts";
 
 interface RecipePayload {
@@ -26,10 +26,7 @@ export function AddRecipePage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const recipeTitleId = useId();
   const ingredientsId = useId();
-  const prepTimeId = useId();
-  const cookTimeId = useId();
   const instructionsId = useId();
   const newSourceId = useId();
 
@@ -108,19 +105,15 @@ export function AddRecipePage() {
     <>
       <p className="mb-2 text-sm text-red-600">* indicates a required field</p>
       <form onSubmit={handleAddRecipe}>
-        <FormTextInput
+        <FormInput
           labelText="Recipe Test"
           requiredLabel
-          id={recipeTitleId}
           name="recipe-title"
           value={recipeTitle}
           type="text"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setRecipeTitle(e.target.value)
-          }
+          onChange={(e) => setRecipeTitle(e.target.value)}
           requiredField
         />
-
         <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
           <FormLabel labelText="Ingredients" required htmlFor={ingredientsId} />
           <textarea
@@ -152,32 +145,29 @@ export function AddRecipePage() {
             onChange={(e) => setInstructions(e.target.value)}
           />
         </div>
-        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <FormLabel labelText="Prep Time" required htmlFor={prepTimeId} />
-          <input
-            className="input input-bordered flex-grow"
-            name="prep-time"
-            value={prepTime}
-            id={prepTimeId}
-            type="number"
-            onChange={(e) => setPrepTime(e.target.value)}
-            required
-            min={0}
-          />
-        </div>
-        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <FormLabel labelText="Cook Time" required htmlFor={cookTimeId} />
-          <input
-            className="input input-bordered flex-grow"
-            name="cook-time"
-            value={cookTime}
-            id={cookTimeId}
-            type="number"
-            onChange={(e) => setCookTime(e.target.value)}
-            required
-            min={0}
-          />
-        </div>
+
+        <FormInput
+          labelText="Prep Time"
+          requiredLabel
+          name="prep-time"
+          value={prepTime}
+          type="number"
+          onChange={(e) => setPrepTime(e.target.value)}
+          requiredField
+          min={0}
+        />
+
+        <FormInput
+          labelText="Cook Time"
+          requiredLabel
+          name="cook-time"
+          type="number"
+          value={cookTime}
+          onChange={(e) => setCookTime(e.target.value)}
+          requiredField
+          min={0}
+        />
+
         <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
           <FormLabel
             labelText="References"
