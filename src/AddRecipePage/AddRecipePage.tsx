@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { FormEvent, useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { FormInput } from "../Utility/FormInput.tsx";
@@ -72,7 +72,7 @@ export function AddRecipePage() {
     setSourcesList([]);
   }
 
-  function handleAddRecipe(e: React.FormEvent) {
+  function handleAddRecipe(e: FormEvent) {
     e.preventDefault();
 
     setIsSuccess(false);
@@ -81,7 +81,7 @@ export function AddRecipePage() {
     postNewRecipe(buildPayload());
   }
 
-  function handleAddReference(e: React.FormEvent) {
+  function handleAddReference(e: FormEvent) {
     e.preventDefault();
 
     setSourcesList((prevState) => [...prevState, newSource]);
