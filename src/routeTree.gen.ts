@@ -15,6 +15,7 @@ import { Route as RecipesImport } from './routes/recipes'
 import { Route as RecentlyAddedImport } from './routes/recently-added'
 import { Route as MostCookedImport } from './routes/most-cooked'
 import { Route as LongTimeImport } from './routes/long-time'
+import { Route as FavoriteRecipesImport } from './routes/favorite-recipes'
 import { Route as AddRecipeImport } from './routes/add-recipe'
 import { Route as IndexImport } from './routes/index'
 import { Route as RecipeRecipeIdNameImport } from './routes/recipe.$recipeIdName'
@@ -39,6 +40,11 @@ const MostCookedRoute = MostCookedImport.update({
 
 const LongTimeRoute = LongTimeImport.update({
   path: '/long-time',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FavoriteRecipesRoute = FavoriteRecipesImport.update({
+  path: '/favorite-recipes',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -78,6 +84,13 @@ declare module '@tanstack/react-router' {
       path: '/add-recipe'
       fullPath: '/add-recipe'
       preLoaderRoute: typeof AddRecipeImport
+      parentRoute: typeof rootRoute
+    }
+    '/favorite-recipes': {
+      id: '/favorite-recipes'
+      path: '/favorite-recipes'
+      fullPath: '/favorite-recipes'
+      preLoaderRoute: typeof FavoriteRecipesImport
       parentRoute: typeof rootRoute
     }
     '/long-time': {
@@ -130,6 +143,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   AddRecipeRoute,
+  FavoriteRecipesRoute,
   LongTimeRoute,
   MostCookedRoute,
   RecentlyAddedRoute,
@@ -148,6 +162,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/add-recipe",
+        "/favorite-recipes",
         "/long-time",
         "/most-cooked",
         "/recently-added",
@@ -161,6 +176,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/add-recipe": {
       "filePath": "add-recipe.tsx"
+    },
+    "/favorite-recipes": {
+      "filePath": "favorite-recipes.tsx"
     },
     "/long-time": {
       "filePath": "long-time.tsx"
