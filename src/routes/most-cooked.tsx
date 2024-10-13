@@ -1,5 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/most-cooked')({
-  component: () => <div>Hello /most-cooked!</div>
-})
+import { PageHeading } from "../Utility/PageHeading.tsx";
+
+export const Route = createFileRoute("/most-cooked")({
+  component: () => <PageHeading title="Most Cooked" />,
+});

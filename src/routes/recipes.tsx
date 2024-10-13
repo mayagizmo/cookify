@@ -1,5 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/recipes')({
-  component: () => <div>Hello /recipes!</div>
-})
+import { PageHeading } from "../Utility/PageHeading.tsx";
+
+export const Route = createFileRoute("/recipes")({
+  component: () => <PageHeading title="Recipes" />,
+});
