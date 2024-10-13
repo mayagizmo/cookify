@@ -1,6 +1,9 @@
-import { useId, useState } from "react";
+import { FormEvent, useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
+import { FormInput } from "../Utility/FormInput.tsx";
+import { FormLabel } from "../Utility/FormLabel.tsx";
+import { FormMultiInput } from "../Utility/FormMultiInput.tsx";
 import { API_BASE } from "../constants.ts";
 
 interface RecipePayload {
@@ -15,7 +18,8 @@ interface RecipePayload {
 
 export function AddRecipePage() {
   const [recipeTitle, setRecipeTitle] = useState("");
-  const [ingredients, setIngredients] = useState("");
+  const [ingredient, setIngredient] = useState("");
+  const [ingredientsList, setIngredientsList] = useState<Array<string>>([]);
   const [prepTime, setPrepTime] = useState("");
   const [cookTime, setCookTime] = useState("");
   const [instructions, setInstructions] = useState("");
@@ -24,12 +28,7 @@ export function AddRecipePage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const recipeTitleId = useId();
-  const ingredientsId = useId();
-  const prepTimeId = useId();
-  const cookTimeId = useId();
   const instructionsId = useId();
-  const newSourceId = useId();
 
   async function postNewRecipe(data: RecipePayload) {
     setIsLoading(true);
@@ -59,21 +58,21 @@ export function AddRecipePage() {
       prepTime: Number(prepTime),
       cookingTime: Number(cookTime),
       instructions,
-      ingredients: splitIngredients(ingredients),
+      ingredients: ingredientsList,
       source: sourcesList,
     };
   }
 
   function resetForm() {
     setRecipeTitle("");
-    setIngredients("");
+    setIngredientsList([]);
     setInstructions("");
     setPrepTime("");
     setCookTime("");
     setSourcesList([]);
   }
 
-  function handleAddRecipe(e: React.FormEvent) {
+  function handleAddRecipe(e: FormEvent) {
     e.preventDefault();
 
     setIsSuccess(false);
@@ -82,65 +81,35 @@ export function AddRecipePage() {
     postNewRecipe(buildPayload());
   }
 
-  function handleAddReference(e: React.FormEvent) {
-    e.preventDefault();
-
-    setSourcesList((prevState) => [...prevState, newSource]);
-
-    setNewSource("");
-  }
-
-  function handleDynamicInputChange(index: number, newValue: string) {
-    setSourcesList(
-      sourcesList.map((source, i) => (i === index ? newValue : source)),
-    );
-  }
-
-  function handleDeleteReference(indexToDelete: number) {
-    const newVal = sourcesList.filter((_, index) => index !== indexToDelete);
-
-    setSourcesList(newVal);
-  }
-
   return (
     <>
       <p className="mb-2 text-sm text-red-600">* indicates a required field</p>
       <form onSubmit={handleAddRecipe}>
-        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={recipeTitleId} className="w-32">
-            <span className="text-red-600">*</span> Recipe Name
-          </label>
+        <FormInput
+          labelText="Recipe Title"
+          requiredLabel
+          name="recipe-title"
+          value={recipeTitle}
+          type="text"
+          onChange={(e) => setRecipeTitle(e.target.value)}
+          requiredField
+        />
 
-          <input
-            className="input input-bordered flex-grow"
-            id={recipeTitleId}
-            name="recipe-title"
-            value={recipeTitle}
-            type="text"
-            onChange={(e) => setRecipeTitle(e.target.value)}
-            required
+        <FormMultiInput
+          stateValue={ingredient}
+          setStateValue={setIngredient}
+          stateList={ingredientsList}
+          setStateList={setIngredientsList}
+          labelText="Ingredients"
+          requiredLabel
+          name="ingredients"
+        />
+        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3 mt-2">
+          <FormLabel
+            labelText="Instructions"
+            required={false}
+            htmlFor={instructionsId}
           />
-        </div>
-        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={ingredientsId} className="w-32">
-            <span className="text-red-600">*</span> Ingredients
-          </label>
-          <textarea
-            className="textarea textarea-bordered flex-grow"
-            autoComplete="on"
-            placeholder="Input the ingredients one on each line"
-            id={ingredientsId}
-            name="ingredients"
-            value={ingredients}
-            rows={5}
-            onChange={(e) => setIngredients(e.target.value)}
-            required
-          />
-        </div>
-        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={instructionsId} className="w-32">
-            Instructions
-          </label>
           <textarea
             className="textarea textarea-bordered flex-grow"
             autoComplete="on"
@@ -152,82 +121,37 @@ export function AddRecipePage() {
             onChange={(e) => setInstructions(e.target.value)}
           />
         </div>
-        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={prepTimeId} className="w-32">
-            <span className="text-red-600">*</span> Prep Time
-          </label>
-          <input
-            className="input input-bordered flex-grow"
-            name="prep-time"
-            value={prepTime}
-            id={prepTimeId}
-            type="number"
-            onChange={(e) => setPrepTime(e.target.value)}
-            required
-            min={0}
-          />
-        </div>
-        <div className="flex flex-col md:items-center md:flex-row gap-2 mb-3">
-          <label htmlFor={cookTimeId} className="w-32">
-            <span className="text-red-600">*</span> Cook Time
-          </label>
-          <input
-            className="input input-bordered flex-grow"
-            name="cook-time"
-            value={cookTime}
-            id={cookTimeId}
-            type="number"
-            onChange={(e) => setCookTime(e.target.value)}
-            required
-            min={0}
-          />
-        </div>
-        <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
-          <label htmlFor={newSourceId} className="w-32">
-            References
-          </label>
-          <aside className="flex gap-2 flex-grow">
-            <input
-              className="input input-bordered flex-grow"
-              name="source"
-              value={newSource}
-              id={newSourceId}
-              type="text"
-              onChange={(e) => setNewSource(e.target.value)}
-            />
-            <button className="btn" onClick={handleAddReference}>
-              Add
-            </button>
-          </aside>
-        </div>
-        {sourcesList.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {sourcesList.map((source, index) => (
-              <div
-                className="flex flex-1 min-w-[calc(100%-0.5rem)] lg:min-w-[calc(50%-0.5rem)]"
-                key={index}
-              >
-                <input
-                  className="input input-bordered flex-grow"
-                  name={source}
-                  id={source}
-                  value={source}
-                  type="text"
-                  onChange={(e) =>
-                    handleDynamicInputChange(index, e.target.value)
-                  }
-                />
-                <button
-                  className="p-2"
-                  type="button"
-                  onClick={() => handleDeleteReference(index)}
-                >
-                  ❌
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
+
+        <FormInput
+          labelText="Prep Time"
+          requiredLabel
+          name="prep-time"
+          value={prepTime}
+          type="number"
+          onChange={(e) => setPrepTime(e.target.value)}
+          requiredField
+          min={0}
+        />
+
+        <FormInput
+          labelText="Cook Time"
+          requiredLabel
+          name="cook-time"
+          type="number"
+          value={cookTime}
+          onChange={(e) => setCookTime(e.target.value)}
+          requiredField
+          min={0}
+        />
+        <FormMultiInput
+          stateValue={newSource}
+          setStateValue={setNewSource}
+          stateList={sourcesList}
+          setStateList={setSourcesList}
+          labelText="References"
+          requiredLabel={false}
+          name="source"
+        />
 
         <div className="text-center mb-2 mt-4">
           <button className="btn btn-primary" type="submit">
@@ -254,8 +178,4 @@ export function AddRecipePage() {
       </form>
     </>
   );
-}
-
-function splitIngredients(ingredients: string) {
-  return ingredients.split("\n").filter((item: string) => item);
 }
