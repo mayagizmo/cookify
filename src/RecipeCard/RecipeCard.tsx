@@ -18,32 +18,25 @@ export function RecipeCard({
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   const handleToggleFavoritesHeart = () => {
-    let currentFavRecipeSet = new Set(); // const does not work - how to do it?
-    const currentLocalStorage = localStorage.getItem("favoriteRecipes");
-    const currentRecipeId = id;
-
-    if (currentLocalStorage != null) {
-      // currentFavRecipeSet.union(parsedLocalStorageSet); https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/union
-      currentFavRecipeSet = new Set(JSON.parse(currentLocalStorage));
-    }
+    const currentFavRecipeSet = new Set(
+      JSON.parse(localStorage.getItem("favoriteRecipes") || "[]"),
+    );
 
     if (!isFavorite) {
-      const updatedFavRecipeSet = currentFavRecipeSet.add(currentRecipeId);
-      const stringyfiedFavoriteRecipes = JSON.stringify(
-        Array.from(updatedFavRecipeSet),
-      );
-      localStorage.setItem("favoriteRecipes", stringyfiedFavoriteRecipes);
+      currentFavRecipeSet.add(id);
     } else {
-      currentFavRecipeSet.delete(currentRecipeId);
-      const stringyfiedFavoriteRecipes = JSON.stringify(
-        Array.from(currentFavRecipeSet),
-      );
-      localStorage.setItem("favoriteRecipes", stringyfiedFavoriteRecipes);
+      currentFavRecipeSet.delete(id);
     }
+
+    const stringyfiedFavoriteRecipes = JSON.stringify(
+      Array.from(currentFavRecipeSet),
+    );
+    localStorage.setItem("favoriteRecipes", stringyfiedFavoriteRecipes);
 
     setIsFavorite(!isFavorite);
   };
 
+  //TODO: Preselect favorite recipe (make heart filled)
   //console.log("isfavorite-current state", isFavorite);
 
   return (
