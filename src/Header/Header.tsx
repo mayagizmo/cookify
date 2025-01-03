@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { BsJournalPlus } from "react-icons/bs";
 import { GiFoodTruck } from "react-icons/gi";
+import { LuFileHeart } from "react-icons/lu";
 
 export function Header() {
   return (
@@ -10,9 +11,14 @@ export function Header() {
         Cookify
       </Link>
 
-      <Link to="/add-recipe" className="p-4 text-xl hover:text-primary">
-        <BsJournalPlus />
-      </Link>
+      <div className="flex justify-between p-4 text-xl ">
+        <Link to="/favorite-recipes" className="mr-2 ">
+          <LuFileHeart className="hover:text-primary" />
+        </Link>
+        <Link to="/add-recipe">
+          <BsJournalPlus className="hover:text-primary" />
+        </Link>
+      </div>
     </header>
   );
 }
