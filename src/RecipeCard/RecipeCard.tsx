@@ -1,5 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { GoHeart, GoHeartFill } from "react-icons/go";
+
+import { useFavoriteRecipesStore } from "../favoriteRecipesStore.ts";
 
 export interface RecipeCardProps {
   title: string;
@@ -14,6 +17,24 @@ export function RecipeCard({
   cookingTime,
   id,
 }: RecipeCardProps) {
+  const favorites = useFavoriteRecipesStore((state) => state.favorites);
+  const isFavorite = favorites.includes(id);
+
+  const addToFavoriteRecipes = useFavoriteRecipesStore(
+    (state) => state.addFavorite,
+  );
+  const removeFromFavoriteRecipes = useFavoriteRecipesStore(
+    (state) => state.removeFavorite,
+  );
+
+  const handleToggleFavoritesHeart = () => {
+    if (!isFavorite) {
+      addToFavoriteRecipes(id);
+    } else {
+      removeFromFavoriteRecipes(id);
+    }
+  };
+
   return (
     <Link
       to="/recipe/$recipeIdName"
@@ -27,6 +48,15 @@ export function RecipeCard({
           <h2 className="card-title">
             {title}
             <span className="badge badge-secondary">Breakfast</span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault(); // Prevents the Link from triggering
+                handleToggleFavoritesHeart(); // This handles the button click
+              }}
+            >
+              {isFavorite ? <GoHeartFill /> : <GoHeart />}
+            </button>
           </h2>
           <div className="flex">
             <FaStar /> <FaStar /> <FaStarHalfAlt /> <FaRegStar /> <FaRegStar />
