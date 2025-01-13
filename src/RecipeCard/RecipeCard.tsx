@@ -17,8 +17,9 @@ export function RecipeCard({
   cookingTime,
   id,
 }: RecipeCardProps) {
-  const favorites = useFavoriteRecipesStore((state) => state.favorites);
-  const isFavorite = favorites.includes(id);
+  const isFavorite = useFavoriteRecipesStore((state) =>
+    state.favorites.includes(id),
+  );
 
   const addToFavoriteRecipes = useFavoriteRecipesStore(
     (state) => state.addFavorite,

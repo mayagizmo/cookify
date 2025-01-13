@@ -12,8 +12,6 @@ export function StateProvider() {
       return;
     }
 
-    console.log("lsFavoriteRecipes=", lsFavoriteRecipes);
-
     initState(JSON.parse(lsFavoriteRecipes));
   }, [initState]);
 
