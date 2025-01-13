@@ -1,16 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
 import { FaSpinner } from "react-icons/fa";
 
 import { RecipeCard } from "../RecipeCard/RecipeCard.tsx";
+import { useFavoriteRecipesStore } from "../favoriteRecipesStore.ts";
 import { useFetchRecipes } from "../hooks/useFetchRecipes.tsx";
 
-export const Route = createFileRoute("/category/$categoryName")({
-  component: CategoryPage,
-});
-
-function CategoryPage() {
-  const { categoryName } = Route.useParams();
+export function FavoriteRecipesPages() {
   const { recipes, isError, isLoading } = useFetchRecipes();
+
+  const favorites = useFavoriteRecipesStore((state) => state.favorites);
 
   if (isLoading) {
     return (
@@ -28,33 +25,23 @@ function CategoryPage() {
       </div>
     );
   }
-  console.log("recipes: ", recipes);
 
   return (
-    <>
-      <div className="text-2xl font-bold m-4 text-primary capitalize flex justify-between">
-        <h2>{categoryName}</h2>
-        <span>({recipes.length})</span>
-      </div>
-
+    <div>
       <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {recipes.map((recipe) => (
-          <Link
-            to="/recipe/$recipeIdName"
-            params={{
-              recipeIdName: `${String(recipe.id)}-${recipe.title.replace(/\s/g, "-")}`,
-            }}
-            key={recipe.id}
-          >
+        {recipes
+          .slice(0, 4)
+          .filter((recipe) => favorites.includes(recipe.id))
+          .map((recipe) => (
             <RecipeCard
+              key={recipe.id}
               title={recipe.title}
               prepTime={recipe.prepTime}
               cookingTime={recipe.cookingTime}
               id={recipe.id}
             />
-          </Link>
-        ))}
+          ))}
       </section>
-    </>
+    </div>
   );
 }

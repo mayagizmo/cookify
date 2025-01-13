@@ -11,6 +11,7 @@ interface FormMultiInputProps {
   requiredLabel: boolean;
   name: string;
 }
+//TODO: Prevent adding an empty string
 
 export function FormMultiInput({
   stateValue,
