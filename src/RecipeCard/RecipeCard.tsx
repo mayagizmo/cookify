@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import cx from "classnames";
 import { useState } from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
@@ -24,6 +24,7 @@ export function RecipeCard({
   const isFavorite = useFavoriteRecipesStore((state) =>
     state.favorites.includes(id),
   );
+  const navigate = useNavigate({ from: "/favorite-recipes" });
   const [showUndo, setShowUndo] = useState(false);
 
   const addToFavoriteRecipes = useFavoriteRecipesStore(
@@ -32,6 +33,17 @@ export function RecipeCard({
   const removeFromFavoriteRecipes = useFavoriteRecipesStore(
     (state) => state.removeFavorite,
   );
+
+  function handleNavigateToFavoriteRecipe(e: React.MouseEvent<HTMLDivElement>) {
+    e.preventDefault();
+
+    navigate({
+      to: "/recipe/$recipeIdName",
+      params: {
+        recipeIdName: `${String(id)}-${title.replace(/\s/g, "-")}`,
+      },
+    });
+  }
 
   const handleToggleFavoritesHeart = () => {
     if (!isFavorite) {
@@ -45,16 +57,9 @@ export function RecipeCard({
   };
 
   return (
-    <Link
-      to="/recipe/$recipeIdName"
-      params={{
-        recipeIdName: `${String(id)}-${title.replace(/\s/g, "-")}`,
-      }}
+    <div
       onClick={(e) => {
-        if (showUndo) {
-          e.preventDefault();
-          alert("because in undo mode, dont redirect");
-        }
+        handleNavigateToFavoriteRecipe(e);
       }}
       className="relative"
       key={id}
@@ -64,7 +69,6 @@ export function RecipeCard({
           "card card-compact basis-[calc(25%-0.75rem)] shadow-xl cursor-pointer bg-base-300 hover:bg-base-200",
           showUndo && "blur-sm",
         )}
-        // TODO: replace the Link parent element with an onClick event on this element
       >
         <div className="card-body">
           <h2 className="card-title">
@@ -92,12 +96,13 @@ export function RecipeCard({
           className="absolute inset-0 flex justify-center items-center"
           onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             handleToggleFavoritesHeart();
           }}
         >
-          <button>Re-Add Recipe</button>
+          <button className="btn btn-primary">Re-Add Recipe</button>
         </p>
       )}
-    </Link>
+    </div>
   );
 }
