@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import cx from "classnames";
+import { useState } from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 
@@ -9,6 +11,7 @@ export interface RecipeCardProps {
   prepTime: number;
   cookingTime: number;
   id: number;
+  hasUndo: boolean;
 }
 
 export function RecipeCard({
@@ -16,10 +19,12 @@ export function RecipeCard({
   prepTime,
   cookingTime,
   id,
+  hasUndo,
 }: RecipeCardProps) {
   const isFavorite = useFavoriteRecipesStore((state) =>
     state.favorites.includes(id),
   );
+  const [showUndo, setShowUndo] = useState(false);
 
   const addToFavoriteRecipes = useFavoriteRecipesStore(
     (state) => state.addFavorite,
@@ -34,6 +39,9 @@ export function RecipeCard({
     } else {
       removeFromFavoriteRecipes(id);
     }
+    if (hasUndo) {
+      setShowUndo(!showUndo);
+    }
   };
 
   return (
@@ -42,9 +50,22 @@ export function RecipeCard({
       params={{
         recipeIdName: `${String(id)}-${title.replace(/\s/g, "-")}`,
       }}
+      onClick={(e) => {
+        if (showUndo) {
+          e.preventDefault();
+          alert("because in undo mode, dont redirect");
+        }
+      }}
+      className="relative"
       key={id}
     >
-      <article className="card card-compact basis-[calc(25%-0.75rem)] bg-base-300 shadow-xl cursor-pointer hover:bg-base-200">
+      <article
+        className={cx(
+          "card card-compact basis-[calc(25%-0.75rem)] shadow-xl cursor-pointer bg-base-300 hover:bg-base-200",
+          showUndo && "blur-sm",
+        )}
+        // TODO: replace the Link parent element with an onClick event on this element
+      >
         <div className="card-body">
           <h2 className="card-title">
             {title}
@@ -66,6 +87,17 @@ export function RecipeCard({
           <footer>#dinner #lunch #spinach #mushroomies #oven</footer>
         </div>
       </article>
+      {showUndo && (
+        <p
+          className="absolute inset-0 flex justify-center items-center"
+          onClick={(e) => {
+            e.preventDefault();
+            handleToggleFavoritesHeart();
+          }}
+        >
+          <button>Re-Add Recipe</button>
+        </p>
+      )}
     </Link>
   );
 }
