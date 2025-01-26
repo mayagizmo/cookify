@@ -4,8 +4,8 @@ import { FaSpinner } from "react-icons/fa";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 
 import { API_BASE } from "../constants.ts";
-import type { ApiRecipe } from "../types.ts";
 import { useFavoriteRecipesStore } from "../favoriteRecipesStore.ts";
+import type { ApiRecipe } from "../types.ts";
 
 export const Route = createFileRoute("/recipe/$recipeIdName")({
   component: RecipeDetailsPage,
