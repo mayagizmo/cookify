@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import cx from "classnames";
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 
@@ -34,7 +34,7 @@ export function RecipeCard({
     (state) => state.removeFavorite,
   );
 
-  function handleNavigateToFavoriteRecipe(e: React.MouseEvent<HTMLDivElement>) {
+  function handleNavigateToFavoriteRecipe(e: MouseEvent<HTMLDivElement>) {
     e.preventDefault();
 
     navigate({
@@ -57,13 +57,7 @@ export function RecipeCard({
   };
 
   return (
-    <div
-      onClick={(e) => {
-        handleNavigateToFavoriteRecipe(e);
-      }}
-      className="relative"
-      key={id}
-    >
+    <div onClick={handleNavigateToFavoriteRecipe} className="relative" key={id}>
       <article
         className={cx(
           "card card-compact basis-[calc(25%-0.75rem)] shadow-xl cursor-pointer bg-base-300 hover:bg-base-200",
