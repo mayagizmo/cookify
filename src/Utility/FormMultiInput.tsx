@@ -1,4 +1,5 @@
-import { Dispatch, FormEvent, SetStateAction, useId } from "react";
+import type { Dispatch, FormEvent, SetStateAction} from "react";
+import { useId } from "react";
 
 import { FormLabel } from "./FormLabel.tsx";
 

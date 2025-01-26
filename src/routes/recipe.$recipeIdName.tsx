@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { API_BASE } from "../constants.ts";
-import { ApiRecipe } from "../types.ts";
+import type { ApiRecipe } from "../types.ts";
 
 export const Route = createFileRoute("/recipe/$recipeIdName")({
   component: RecipeDetailsPage,
@@ -23,7 +23,7 @@ function RecipeDetailsPage() {
         const response = await fetch(`${API_BASE}/recipes/${recipeId}`);
 
         if (response.ok) {
-          const data: { recipe: ApiRecipe } = await response.json();
+          const data = (await response.json()) as { recipe: ApiRecipe };
           setIsError(false);
 
           setRecipe(data.recipe);
@@ -38,7 +38,7 @@ function RecipeDetailsPage() {
       }
     }
     void fetchRecipes();
-  }, []);
+  }, [recipeId]);
 
   if (isLoading || !recipe) {
     return (

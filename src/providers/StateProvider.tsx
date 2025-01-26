@@ -12,7 +12,7 @@ export function StateProvider() {
       return;
     }
 
-    initState(JSON.parse(lsFavoriteRecipes));
+    initState(JSON.parse(lsFavoriteRecipes) as Array<number>);
   }, [initState]);
 
   return <></>;
