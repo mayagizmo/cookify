@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { RecipeCard } from "../RecipeCard/RecipeCard.tsx";
@@ -8,6 +9,12 @@ export function FavoriteRecipesPages() {
   const { recipes, isError, isLoading } = useFetchRecipes();
 
   const favorites = useFavoriteRecipesStore((state) => state.favorites);
+
+  const copyFavoritesRef = useRef<Array<number>>();
+
+  if (!copyFavoritesRef.current) {
+    copyFavoritesRef.current = [...favorites];
+  }
 
   if (isLoading) {
     return (
@@ -27,21 +34,20 @@ export function FavoriteRecipesPages() {
   }
 
   return (
-    <div>
-      <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {recipes
-          .slice(0, 4)
-          .filter((recipe) => favorites.includes(recipe.id))
-          .map((recipe) => (
-            <RecipeCard
-              key={recipe.id}
-              title={recipe.title}
-              prepTime={recipe.prepTime}
-              cookingTime={recipe.cookingTime}
-              id={recipe.id}
-            />
-          ))}
-      </section>
-    </div>
+    <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {recipes
+        .slice(0, 4)
+        .filter((recipe) => copyFavoritesRef.current?.includes(recipe.id))
+        .map((recipe) => (
+          <RecipeCard
+            key={recipe.id}
+            title={recipe.title}
+            prepTime={recipe.prepTime}
+            cookingTime={recipe.cookingTime}
+            id={recipe.id}
+            hasUndo
+          />
+        ))}
+    </section>
   );
 }
