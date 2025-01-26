@@ -2,7 +2,7 @@ import { FaSpinner } from "react-icons/fa";
 
 import { TitleAndListOfRecipes } from "../TitleAndListOfRecipes/TitleAndListOfRecipes.tsx";
 import { useFetchRecipes } from "../hooks/useFetchRecipes.tsx";
-import { ApiRecipe } from "../types.ts";
+import type { ApiRecipe } from "../types.ts";
 
 export interface APIResponse {
   recipes: Array<ApiRecipe>;

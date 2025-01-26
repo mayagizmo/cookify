@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { API_BASE } from "../constants.ts";
-import { ApiRecipe } from "../types.ts";
+import type { ApiRecipe } from "../types.ts";
 
 export function useFetchRecipes() {
   interface APIResponse {
@@ -19,14 +19,14 @@ export function useFetchRecipes() {
         const response = await fetch(`${API_BASE}/recipes`);
 
         if (response.ok) {
-          const data: APIResponse = await response.json();
+          const data = (await response.json()) as APIResponse;
           setIsError(false);
 
           setRecipes(data.recipes);
         } else {
           setIsError(true);
         }
-      } catch (error) {
+      } catch {
         setIsError(true);
       } finally {
         setIsLoading(false);
