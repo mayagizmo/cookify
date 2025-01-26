@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { RecipeCard } from "../RecipeCard/RecipeCard.tsx";
-import { ApiRecipe } from "../types.ts";
+import type { ApiRecipe } from "../types.ts";
 
 interface TitleAndListOfRecipesProps {
   title: string;

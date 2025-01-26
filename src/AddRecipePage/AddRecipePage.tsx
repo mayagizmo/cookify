@@ -1,4 +1,5 @@
-import { FormEvent, useId, useState } from "react";
+import type { FormEvent } from "react";
+import { useId, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { FormInput } from "../Utility/FormInput.tsx";
@@ -41,7 +42,8 @@ export function AddRecipePage() {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
+      // TODO: update response type
+      const result = (await response.json()) as { success: boolean };
       console.log("Success:", result);
       setIsSuccess(true);
       resetForm();
@@ -72,13 +74,13 @@ export function AddRecipePage() {
     setSourcesList([]);
   }
 
-  function handleAddRecipe(e: FormEvent) {
+  async function handleAddRecipe(e: FormEvent) {
     e.preventDefault();
 
     setIsSuccess(false);
     setIsError(false);
 
-    postNewRecipe(buildPayload());
+    await postNewRecipe(buildPayload());
   }
 
   return (
