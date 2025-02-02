@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
+import { GoHeart, GoHeartFill } from "react-icons/go";
 
 import { API_BASE } from "../constants.ts";
+import { useFavoriteRecipesStore } from "../favoriteRecipesStore.ts";
 import type { ApiRecipe } from "../types.ts";
 
 export const Route = createFileRoute("/recipe/$recipeIdName")({
@@ -15,6 +17,25 @@ function RecipeDetailsPage() {
   const [recipe, setRecipe] = useState<ApiRecipe>();
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const isFavorite = useFavoriteRecipesStore((state) =>
+    state.favorites.includes(Number(recipeId)),
+  );
+
+  const addToFavoriteRecipes = useFavoriteRecipesStore(
+    (state) => state.addFavorite,
+  );
+  const removeFromFavoriteRecipes = useFavoriteRecipesStore(
+    (state) => state.removeFavorite,
+  );
+
+  const handleToggleFavoritesHeart = () => {
+    if (!isFavorite) {
+      addToFavoriteRecipes(Number(recipeId));
+    } else {
+      removeFromFavoriteRecipes(Number(recipeId));
+    }
+  };
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -59,15 +80,27 @@ function RecipeDetailsPage() {
 
   return (
     <div className="card card-compact bg-base-300 shadow-xl m-1 p-4">
-      <h1 className="text-2xl font-bold m-4">{recipe.title}</h1>
+      <h1 className="text-2xl font-bold m-4">
+        <button
+          className="pr-2"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault(); // Prevents the Link from triggering
+            handleToggleFavoritesHeart(); // This handles the button click
+          }}
+        >
+          {isFavorite ? <GoHeartFill /> : <GoHeart />}
+        </button>
+        {recipe.title}
+      </h1>
       <div className="divider divider-neutral">Time</div>
       <div className="flex gap-2 justify-between">
         <div>
-          <div className="font-bold">Prep Time </div>
+          <div className="font-bold">Prep Time</div>
           <div>{recipe.prepTime} mins</div>
         </div>
         <div>
-          <div className="font-bold">Cooking Time </div>
+          <div className="font-bold">Cooking Time</div>
           <div>{recipe.cookingTime} mins</div>
         </div>
         <div>

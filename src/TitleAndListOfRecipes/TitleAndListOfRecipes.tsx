@@ -27,6 +27,7 @@ export function TitleAndListOfRecipes({
             prepTime={recipe.prepTime}
             cookingTime={recipe.cookingTime}
             id={recipe.id}
+            hasUndo={false}
           />
         ))}
       </section>
