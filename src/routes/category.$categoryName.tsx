@@ -51,6 +51,7 @@ function CategoryPage() {
               prepTime={recipe.prepTime}
               cookingTime={recipe.cookingTime}
               id={recipe.id}
+              hasUndo
             />
           </Link>
         ))}

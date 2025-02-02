@@ -10,7 +10,7 @@ export function FavoriteRecipesPages() {
 
   const favorites = useFavoriteRecipesStore((state) => state.favorites);
 
-  const copyFavoritesRef = useRef<Array<number>>();
+  const copyFavoritesRef = useRef<Array<number>>(null);
 
   if (!copyFavoritesRef.current) {
     copyFavoritesRef.current = [...favorites];
